@@ -4,6 +4,9 @@ local cache = os.getenv("CORTEX_NEO_CACHE_DIR") or (os.getenv("HOME") .. "/.cach
 local ui_file = os.getenv("CORTEX_NEO_UI_FILE") or (cache .. "/ui.lua")
 local ok, ui = pcall(dofile, ui_file)
 M.ui = ok and type(ui) == "table" and ui or { scale = 1, font_scale = 1, padding = 14, cards = {} }
+function M.t(message)
+    return (M.ui.translations or {})[message] or message
+end
 local snapshot, frame = {}, -1
 local private_frame, private_value = -1, false
 

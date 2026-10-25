@@ -20,9 +20,9 @@ return function(H)
 
     function conky_status()
         if H.private_mode() then
-            return "${color5}Presentación"
+            return H.t("${color5}Presentation")
         end
-        return H.fresh() and "${color2}En vivo" or "${color6}Sin actualizar"
+        return H.fresh() and H.t("${color2}Live") or H.t("${color6}Stale")
     end
 
     function conky_system_meta(width)
@@ -90,21 +90,21 @@ return function(H)
             lines[#lines + 1] = "${color3}" .. table.concat(subtitle, " / ")
         end
         if H.detailed() and hardware.ram_speed and hardware.ram_speed ~= "" and hardware.ram_speed ~= "N/D" then
-            lines[#lines + 1] = "${color3}Configurada: " .. H.clean(hardware.ram_speed)
+            lines[#lines + 1] = H.t("${color3}Configured: ") .. H.clean(hardware.ram_speed)
         end
         return table.concat(lines, "\n") .. "${font}"
     end
 
     function conky_cpu_top()
         if H.private_mode() then
-            return "${color3}Procesos ocultos"
+            return H.t("${color3}Processes hidden")
         end
         local processes = (data().cpu or {}).top or {}
         if not H.fresh() or #processes == 0 then
             return ""
         end
         local limit = H.ui.top_count or 5
-        local out = { "${color2}TOP " .. limit .. " PROCESOS${alignr}${color3}%CPU" }
+        local out = { "${color2}TOP " .. limit .. H.t(" PROCESSES${alignr}${color3}%CPU") }
         local threads = tonumber((data().hardware or {}).cpu_threads) or 1
         for index, process in ipairs(processes) do
             if index > limit then
@@ -133,17 +133,17 @@ return function(H)
 
     function conky_gpu_summary()
         if not H.fresh() then
-            return "${color6}Datos sin actualizar"
+            return H.t("${color6}Stale data")
         end
         local gpu = data().gpu or {}
         local text = ""
         if type(gpu.load) == "number" then
             text = "${color1}GPU " .. string.format("%.1f%%", gpu.load)
         elseif type(gpu.frequency) == "number" then
-            text = "${color1}Frecuencia " .. string.format("%.0f MHz", gpu.frequency)
+            text = H.t("${color1}Frequency ") .. string.format("%.0f MHz", gpu.frequency)
             if type(gpu.frequency_max) == "number" and gpu.frequency_max > 0 then
                 text = text
-                    .. "${alignr}${color3}máx "
+                    .. H.t("${alignr}${color3}max ")
                     .. string.format("%.0f MHz", gpu.frequency_max)
             end
         end
@@ -155,14 +155,14 @@ return function(H)
 
     function conky_memory_top()
         if H.private_mode() then
-            return "${color3}Aplicaciones ocultas · RSS compartida"
+            return H.t("${color3}Applications hidden · shared RSS")
         end
         local rows = (data().ram or {}).top or {}
         if not H.fresh() or #rows == 0 then
             return ""
         end
         local limit = H.ui.top_count or 5
-        local out = { "${color2}TOP " .. limit .. " / APLICACIONES${alignr}${color3}RSS" }
+        local out = { "${color2}TOP " .. limit .. H.t(" / APPLICATIONS${alignr}${color3}RSS") }
         for index, app in ipairs(rows) do
             if index > limit then
                 break
@@ -182,7 +182,7 @@ return function(H)
         local psi_text = type(pressure) == "number" and string.format("%.1f%%", pressure) or "—"
         local swap_text = type(swap) == "number" and string.format("%.1fG", swap / 1024 ^ 3)
             or "—"
-        out[#out + 1] = "${font Ubuntu Sans Mono:size=7}${color3}RSS compartida · PSI "
+        out[#out + 1] = H.t("${font Ubuntu Sans Mono:size=7}${color3}Shared RSS · PSI ")
             .. psi_text
             .. " · swap "
             .. swap_text
@@ -192,7 +192,7 @@ return function(H)
 
     function conky_disk_summary()
         if not H.fresh() then
-            return "Datos sin actualizar"
+            return H.t("Stale data")
         end
         local mounted, unmounted = 0, 0
         for _, disk in ipairs(data().disks or {}) do
@@ -203,9 +203,9 @@ return function(H)
             end
         end
         return mounted
-            .. (mounted == 1 and " montado / " or " montados / ")
+            .. (mounted == 1 and H.t(" mounted / ") or H.t(" mounted / "))
             .. unmounted
-            .. " sin montar"
+            .. H.t(" unmounted")
     end
 
     function conky_other_disks(requested_page)
@@ -222,10 +222,10 @@ return function(H)
                 or string.format("%.0f GB", (disk.size or 0) / 1e9)
             local block = {}
             if disk.target or #(disk.mounts or {}) > 0 then
-                local target = H.private_mode() and "montado" or H.clean(disk.target)
+                local target = H.private_mode() and H.t("mounted") or H.clean(disk.target)
                 local state = type(disk.load) == "number"
                         and (target .. " " .. string.format("%.1f%%", disk.load))
-                    or "montado / sin lectura"
+                    or H.t("mounted / no reading")
                 block = {
                     "${color}" .. H.short(disk.model or disk.name, 44),
                     "${color3}" .. H.clean(disk.kind) .. " / " .. size .. " / " .. state,
@@ -236,7 +236,7 @@ return function(H)
                         .. H.short(disk.model or disk.name, 20)
                         .. " / "
                         .. size
-                        .. " / sin montar",
+                        .. H.t(" / unmounted"),
                 }
             end
             local cost = #block * H.font(8) * 1.6
@@ -252,7 +252,7 @@ return function(H)
         page = math.max(1, math.min(#pages, math.floor(page)))
         local out = pages[page]
         if #pages > 1 then
-            out[#out + 1] = "${font Ubuntu Sans Mono:size=7}${color3}Discos "
+            out[#out + 1] = H.t("${font Ubuntu Sans Mono:size=7}${color3}Disks ")
                 .. page
                 .. " / "
                 .. #pages
@@ -294,7 +294,7 @@ return function(H)
                 + H.pixels(6)
                 + #detail * H.font(9) * 1.6
                 + (note and H.font(8) * 1.6 or 0)
-            local category = entry.group or "Aplicaciones"
+            local category = entry.group or H.t("Applications")
             local heading = category ~= group and H.font(10) * 1.6 + H.pixels(12) or 0
             if height + cost + heading > budget and #pages[#pages] > 0 then
                 pages[#pages + 1] = {}
@@ -310,11 +310,11 @@ return function(H)
         group = ""
         for _, block in ipairs(pages[index]) do
             local entry = block.entry
-            local category = entry.group or "Aplicaciones"
+            local category = entry.group or H.t("Applications")
             if category ~= group then
                 group = category
                 out[#out + 1] = "${voffset 12}${font Ubuntu Sans Mono:style=Bold:size=10}${color2}"
-                    .. H.clean(category):upper()
+                    .. H.t(({ Aplicaciones = "Applications", Lenguajes = "Languages", Herramientas = "Tools" })[category] or H.clean(category)):upper()
             end
             local columns = math.max(
                 12,
@@ -324,7 +324,7 @@ return function(H)
             local label =
                 H.short(entry.label, math.max(6, columns - (utf8.len(version) or #version) - 2))
             out[#out + 1] = "${voffset 6}${font Ubuntu Sans Mono:style=Bold:size=11}${color}"
-                .. label
+                .. H.t(label)
                 .. "${alignr}${color1}"
                 .. version
             for _, line in ipairs(block.detail) do
@@ -333,15 +333,15 @@ return function(H)
             if block.note then
                 out[#out + 1] = "${offset 10}${font Ubuntu Sans Mono:size=8}${color3}+"
                     .. extra_python
-                    .. " versiones adicionales instaladas"
+                    .. H.t(" additional versions installed")
             end
         end
         if #pages > 1 then
-            out[#out + 1] = "${voffset 4}${font Ubuntu Sans Mono:size=7}${color3}Pagina "
+            out[#out + 1] = H.t("${voffset 4}${font Ubuntu Sans Mono:size=7}${color3}Page ")
                 .. index
                 .. " / "
                 .. #pages
-                .. "  -  cambia cada 30s"
+                .. H.t("  -  changes every 30s")
         end
         return table.concat(out, "\n") .. "${font}"
     end

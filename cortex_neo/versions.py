@@ -55,7 +55,7 @@ def applications():
 
     def add(label, version, detail=""):
         if version:
-            result.append(dict(label=label, version=version, detail=detail, group="Aplicaciones"))
+            result.append(dict(label=label, version=version, detail=detail, group="Applications"))
 
     product = read_json("/usr/share/code/resources/app/product.json", {})
     if not isinstance(product, dict):
@@ -116,7 +116,7 @@ def node_versions():
                     label="Node.js",
                     version=value["node"],
                     detail="V8 " + value.get("v8", ""),
-                    group="Lenguajes",
+                    group="Languages",
                 )
             )
     return result
@@ -138,16 +138,16 @@ def python_versions():
             continue
         role = "active" if path == active else "system" if path == system else "additional"
         labels = {
-            "active": "Python (activa/SO)" if active == system else "Python (activa)",
-            "system": "Python (SO)",
-            "additional": "Python adicional",
+            "active": "Python (active/OS)" if active == system else "Python (active)",
+            "system": "Python (OS)",
+            "additional": "Additional Python",
         }
         result.append(
             dict(
                 label=labels[role],
                 version=version,
                 detail=match(r"\[([^]]+)\]", output),
-                group="Lenguajes",
+                group="Languages",
                 family="python",
                 role=role,
             )
@@ -160,7 +160,7 @@ def compiled_languages():
 
     def add(label, version, detail=""):
         if version:
-            result.append(dict(label=label, version=version, detail=detail, group="Lenguajes"))
+            result.append(dict(label=label, version=version, detail=detail, group="Languages"))
 
     if path := executable("rustc", Path.home() / ".cargo/bin/rustc"):
         output = command([path, "-Vv"])
@@ -206,7 +206,7 @@ def other_languages():
         if version := match(r"Version (\S+)", command([path, "--version"])):
             typescript.add(version)
     for version in sorted(typescript):
-        result.append(dict(label="TypeScript", version=version, detail="", group="Lenguajes"))
+        result.append(dict(label="TypeScript", version=version, detail="", group="Languages"))
     probes = [
         ("Perl", "perl", ["-e", 'printf "%vd", $^V'], r"^(\d+\.\d+(?:\.\d+)?)$"),
         ("Ruby", "ruby", ["--version"], r"ruby ([\w.]+)"),
@@ -219,7 +219,7 @@ def other_languages():
         if path := executable(binary):
             version = match(pattern, command([path, *args], stderr=True))
             if version:
-                result.append(dict(label=label, version=version, detail="", group="Lenguajes"))
+                result.append(dict(label=label, version=version, detail="", group="Languages"))
     return result
 
 
@@ -230,7 +230,7 @@ def shells():
             if version := match(pattern, command([path, "--version"])):
                 values.append(binary + " " + version)
     return (
-        [dict(label="Shells", version=" / ".join(values), detail="", group="Herramientas")]
+        [dict(label="Shells", version=" / ".join(values), detail="", group="Tools")]
         if values
         else []
     )

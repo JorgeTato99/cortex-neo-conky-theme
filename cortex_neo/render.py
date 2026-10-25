@@ -8,20 +8,21 @@ from pathlib import Path
 
 from .conky import window_settings
 from .fonts import resolve_font
+from .i18n import catalog
 from .io import atomic, lua
 from .paths import CACHE, GENERATED, ROOT
 from .preferences import theme_settings
 
 TITLES = {
-    "system": ("\uf108", "CÓRTEX NEO"),
-    "cpu": ("\uf2db", "PROCESADOR"),
-    "ram": ("\uf1b2", "MEMORIA"),
-    "gpu": ("\uf108", "GRÁFICOS"),
-    "storage": ("\uf0a0", "ALMACENAMIENTO"),
-    "network": ("\uf0ac", "RED / CONTENEDORES"),
-    "software": ("\uf121", "VERSIONES / BUILDS"),
-    "calendar": ("\uf073", "CALENDARIO"),
-    "weather": ("\uf041", "UBICACIÓN / CLIMA"),
+    "system": ("\uf108", "CORTEX NEO"),
+    "cpu": ("\uf2db", "PROCESSOR"),
+    "ram": ("\uf1b2", "MEMORY"),
+    "gpu": ("\uf108", "GRAPHICS"),
+    "storage": ("\uf0a0", "STORAGE"),
+    "network": ("\uf0ac", "NETWORK / CONTAINERS"),
+    "software": ("\uf121", "VERSIONS / BUILDS"),
+    "calendar": ("\uf073", "CALENDAR"),
+    "weather": ("\uf041", "LOCATION / WEATHER"),
 }
 
 
@@ -100,9 +101,12 @@ def config(name, box, layout, snapshot, build=None):
     glyph, title = TITLES[name]
     if name == "network":
         if not snapshot.get("docker_available"):
-            title = "RED"
+            title = "NETWORK"
         elif not (snapshot.get("network") or {}).get("interface"):
-            title = "CONTENEDORES"
+            title = "CONTAINERS"
+    title = catalog(layout.get("language", "en")).get(title, title)
+    if name == "cpu":
+        text = text.replace("history / 2s", "historial / 2s" if layout.get("language") == "es" else "history / 2s")
     status = "${lua_parse status}" if name == "system" else "${color4}┐"
     header = (
         "${font FontAwesome:size=13}${color2}"
@@ -155,6 +159,8 @@ def generate(layout, snapshot, build=None):
         font_family=resolve_font(layout.get("font", "ubuntu")),
         language=layout.get("language", "en"),
         detail_level=layout.get("detail_level", "full"),
+        translations=catalog(layout.get("language", "en")),
+        weekdays=["L", "M", "X", "J", "V", "S", "D"] if layout.get("language") == "es" else ["M", "T", "W", "T", "F", "S", "S"],
         padding=max(1, round(14 * layout["scale"])),
         cards={k: dict(width=v["w"], height=v["h"]) for k, v in layout["cards"].items()},
     )

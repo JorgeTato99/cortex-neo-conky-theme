@@ -85,8 +85,8 @@ function conky_disk_usage()
     if not H.fresh() or type(d.load) ~= "number" then
         return "—"
     end
-    return (H.private_mode() and "[montaje]" or H.clean(d.target or "/"))
-        .. string.format(" · USO %.1f%% / ", d.load or 0)
+    return (H.private_mode() and H.t("[mount]") or H.clean(d.target or "/"))
+        .. string.format(H.t(" · USED %.1f%% / "), d.load or 0)
         .. bytes(d.used)
         .. " / "
         .. bytes(d.total)
@@ -98,7 +98,7 @@ function conky_memory_usage()
     local r = data().ram or {}
     local usage = bytes(r.used) .. " / " .. bytes(r.total)
     if type(r.available) == "number" then
-        usage = usage .. " · disp " .. string.format("%.1fG", r.available / 1024 ^ 3)
+        usage = usage .. H.t(" · avail ") .. string.format("%.1fG", r.available / 1024 ^ 3)
     end
     return usage
 end
@@ -123,12 +123,12 @@ function conky_containers()
                 .. ": "
                 .. (
                     available
-                        and tostring(v.running) .. (H.ui.presentation_profile == "compact" and "" or " activos")
-                    or "sin conexión"
+                        and tostring(v.running) .. (H.ui.presentation_profile == "compact" and "" or H.t(" running"))
+                    or H.t("offline")
                 )
         end
     end
-    return table.concat(out, " / ") .. (projects > 0 and (" · " .. projects .. " grupos") or "")
+    return table.concat(out, " / ") .. (projects > 0 and (" · " .. projects .. H.t(" groups")) or "")
 end
 local function clean(text)
     return tostring(text or ""):gsub("[$%c]", " ")
@@ -138,36 +138,36 @@ local function number(value, format)
 end
 local function condition(code, is_day)
     if code == 0 or code == 1 then
-        return code == 0 and "Despejado" or "Mayormente despejado",
+        return code == 0 and H.t("Clear") or H.t("Mostly clear"),
             is_day == 0 and "\u{f186}" or "\u{f185}"
     end
     if code == 2 or code == 3 then
-        return code == 2 and "Parcialmente nublado" or "Nublado", "\u{f0c2}"
+        return code == 2 and H.t("Partly cloudy") or H.t("Overcast"), "\u{f0c2}"
     end
     if code == 45 or code == 48 then
-        return "Niebla", "\u{f0c2}"
+        return H.t("Fog"), "\u{f0c2}"
     end
     if code and code >= 95 then
-        return "Tormenta", "\u{f0e7}"
+        return H.t("Thunderstorm"), "\u{f0e7}"
     end
     if code and ((code >= 71 and code <= 77) or code == 85 or code == 86) then
-        return "Nieve", "\u{f2dc}"
+        return H.t("Snow"), "\u{f2dc}"
     end
     if code and code >= 51 and code <= 57 then
-        return "Llovizna", "\u{f043}"
+        return H.t("Drizzle"), "\u{f043}"
     end
     if code and code >= 61 and code <= 82 then
-        return "Lluvia", "\u{f043}"
+        return H.t("Rain"), "\u{f043}"
     end
-    return "Sin dato", "\u{f0c2}"
+    return H.t("Unavailable"), "\u{f0c2}"
 end
 function conky_weather()
     if H.private_mode() then
-        return "${color3}Ubicación y clima ocultos"
+        return H.t("${color3}Location and weather hidden")
     end
     local w = data().weather or { status = "unconfigured" }
     if w.status == "unconfigured" then
-        return "${color}${font Ubuntu Sans Mono:style=Bold:size=12}TU UBICACION${font}\n\n${color3}Pendiente de configurar ciudad.\n\nClima actual y pronostico\nde los proximos siete dias.\n\n${color2}${font FontAwesome:size=24}\u{f0c2}${font}\n\n${color3}${font Ubuntu Sans Mono:size=8}Sin geolocalizacion por IP.\nFuente: Open-Meteo${font}"
+        return H.t("${color}${font Ubuntu Sans Mono:style=Bold:size=12}YOUR LOCATION${font}\n\n${color3}Set a city manually.\n\nCurrent weather and forecast\nfor the next seven days.\n\n${color2}${font FontAwesome:size=24}\u{f0c2}${font}\n\n${color3}${font Ubuntu Sans Mono:size=8}No IP geolocation.\nSource: Open-Meteo${font}")
     end
     local place = w.location or {}
     local weather_card = (H.ui.cards or {}).weather or { width = 272 }
@@ -180,7 +180,7 @@ function conky_weather()
     }
     if not w.current or w.status == "expired" then
         lines[#lines + 1] =
-            "\n${color6}Clima no disponible\n${color3}Reintentando en segundo plano.\n\n${font Ubuntu Sans Mono:size=8}Fuente: Open-Meteo${font}"
+            H.t("\n${color6}Weather unavailable\n${color3}Retrying in the background.\n\n${font Ubuntu Sans Mono:size=8}Source: Open-Meteo${font}")
         return table.concat(lines, "\n")
     end
     local c = w.current
@@ -195,14 +195,14 @@ function conky_weather()
         .. "${alignr}${font Ubuntu Sans Mono:size=8}${color3}"
         .. number(c.wind_speed_10m)
         .. " km/h"
-    lines[#lines + 1] = "${font Ubuntu Sans Mono:size=8}${color3}Sensacion "
+    lines[#lines + 1] = H.t("${font Ubuntu Sans Mono:size=8}${color3}Feels like ")
         .. number(c.apparent_temperature)
-        .. " C / Humedad "
+        .. H.t(" C / Humidity ")
         .. number(c.relative_humidity_2m)
         .. "%"
     lines[#lines + 1] =
-        "${voffset 2}${color2}${font Ubuntu Sans Mono:style=Bold:size=8}7 DIAS   MIN / MAX${alignr}LLUVIA"
-    local weekdays = { "DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB" }
+        H.t("${voffset 2}${color2}${font Ubuntu Sans Mono:style=Bold:size=8}7 DAYS   MIN / MAX${alignr}RAIN")
+    local weekdays = { H.t("SUN"), H.t("MON"), H.t("TUE"), H.t("WED"), H.t("THU"), H.t("FRI"), H.t("SAT") }
     for _, day in ipairs(w.days or {}) do
         if day.date >= (w.local_date or "") then
             local year, month, date = day.date:match("(%d+)-(%d+)-(%d+)")
@@ -212,7 +212,7 @@ function conky_weather()
                 day = tonumber(date),
                 hour = 12,
             })
-            local name = day.date == w.local_date and "HOY"
+            local name = day.date == w.local_date and H.t("TODAY")
                 or weekdays[tonumber(os.date("%w", stamp)) + 1]
             local _, icon = condition(day.weather_code, 1)
             lines[#lines + 1] = "${font Ubuntu Sans Mono:size=9}${color}"
@@ -231,7 +231,7 @@ function conky_weather()
     local today = (w.days or {})[1] or {}
     local sunrise = tostring(today.sunrise or ""):match("T(%d%d:%d%d)") or "--:--"
     local sunset = tostring(today.sunset or ""):match("T(%d%d:%d%d)") or "--:--"
-    lines[#lines + 1] = "${voffset 2}${font Ubuntu Sans Mono:size=8}${color3}Sol "
+    lines[#lines + 1] = H.t("${voffset 2}${font Ubuntu Sans Mono:size=8}${color3}Sun ")
         .. sunrise
         .. " / "
         .. sunset
@@ -248,18 +248,18 @@ function conky_calendar(width)
         return ""
     end
     local months = {
-        "ENERO",
-        "FEBRERO",
-        "MARZO",
-        "ABRIL",
-        "MAYO",
-        "JUNIO",
-        "JULIO",
-        "AGOSTO",
-        "SEPTIEMBRE",
-        "OCTUBRE",
-        "NOVIEMBRE",
-        "DICIEMBRE",
+        H.t("JANUARY"),
+        H.t("FEBRUARY"),
+        H.t("MARCH"),
+        H.t("APRIL"),
+        H.t("MAY"),
+        H.t("JUNE"),
+        H.t("JULY"),
+        H.t("AUGUST"),
+        H.t("SEPTEMBER"),
+        H.t("OCTOBER"),
+        H.t("NOVEMBER"),
+        H.t("DECEMBER"),
     }
     local cell = (tonumber(width) or 244) / 7
     local week_count = math.max(1, #c.weeks)
@@ -272,7 +272,7 @@ function conky_calendar(width)
         "${font Ubuntu Sans Mono:style=Bold:size=12}${color}" .. months[c.month] .. " " .. c.year,
     }
     local headings = {}
-    for column, label in ipairs({ "L", "M", "X", "J", "V", "S", "D" }) do
+    for column, label in ipairs(H.ui.weekdays or { "M", "T", "W", "T", "F", "S", "S" }) do
         -- goto is window-relative; include the same 14 px inset as plain text.
         headings[#headings + 1] = "${goto "
             .. ((H.ui.padding or 14) + math.floor((column - 0.5) * cell - H.font(9) * 0.4))
