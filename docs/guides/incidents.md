@@ -1,32 +1,16 @@
-# Conservar un incidente
+# Capture an incident
 
 ```bash
-cortex-neo incident --label "lentitud durante pruebas"
-cortex-neo incident --label "solo retrospectiva" --after 0
+cortex-neo incident --label "slow tests"
+cortex-neo incident --label "retrospective only" --after 0
 cortex-neo incidents
-cortex-neo incident-export --id ID_DEL_INCIDENTE
+cortex-neo incident-export --id INCIDENT_ID
 ```
 
-La captura es voluntaria. Conserva hasta cuatro minutos previos y un minuto
-posterior; `--before` admite 0–240 s y `--after` 0–60 s. La CLI espera la ventana
-posterior y se puede interrumpir con Ctrl+C para guardar lo disponible. El
-dashboard sigue funcionando: la herramienta lee su caché, sin otro recolector.
+Capture is explicit and uses the existing sampler cache. `--before` accepts 0–240 seconds; `--after` accepts 0–60. The CLI waits for the after-window; Ctrl+C saves available observations. No second hardware collector runs.
 
-Cada muestra incluye métricas y tops resumidos. No hay argumentos, entornos ni
-contenido de archivos. Los nombres de procesos y la etiqueta permanecen en el
-registro privado de `~/.local/state/cortex-neo/incidents/`; los archivos se crean
-con permisos privados. Se conservan diez incidentes, de hasta doscientas muestras,
-y solo se eliminan registros propios con identificador y marcador válidos.
-Las escrituras concurrentes se serializan; un archivo incompleto no se publica.
+Private records include compact metrics/process tops and your label, but never arguments, environments or file contents. They live under `~/.local/state/cortex-neo/incidents/`, with private permissions, atomic writes and concurrent-operation locking. Retention is ten owned records, each at most two hundred samples; cleanup requires valid ownership markers/identifiers.
 
-La ventana previa depende del tiempo que lleve activo el recolector. No se
-inventan muestras ni ceros para huecos. `gaps` señala saltos superiores a 4,5 s;
-`no_data` e `interrupted` distinguen esos resultados de una captura completa.
-El tiempo de espera usa reloj monotónico para evitar esperas indefinidas por
-ajustes del reloj del sistema.
+Available prehistory depends on sampler uptime. Missing intervals are not invented as zeros. `gaps` marks intervals over 4.5 seconds; `no_data` and `interrupted` remain distinct outcomes. Waiting uses a monotonic clock.
 
-`incident-export` imprime únicamente tiempos y métricas seleccionadas. Omite
-etiquetas, nombres/PID de procesos e identidades de discos. No envía nada: revisa
-la salida antes de compartirla. Coincidencias temporales no demuestran causas.
-CPU global usa el total del equipo; el top CPU conserva porcentaje por núcleo y
-la memoria de procesos es RSS, que incluye páginas compartidas.
+Export selects times and numeric metrics, omitting labels, process names/PIDs and disk identities. Nothing is sent. Global CPU uses machine capacity; process CPU is per-core and RSS includes shared pages. Temporal correlation does not establish cause. Review exports before sharing.
