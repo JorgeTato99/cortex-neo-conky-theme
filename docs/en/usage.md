@@ -1,4 +1,4 @@
-# CÓRTEX NEO command guide
+# CORTEX NEO command guide
 
 Run commands as your desktop user. If necessary, replace `cortex-neo` with
 `~/.local/bin/cortex-neo`. Collection/cards belong to the graphical session;
@@ -77,7 +77,7 @@ cortex-neo containers
 cortex-neo containers --format json
 ```
 
-Performance measures only CÓRTEX's service trees. One-core CPU percent differs
+Performance measures only CORTEX's service trees. One-core CPU percent differs
 from whole-machine CPU percent. Summed RSS includes shared pages and can count
 them more than once. PSS/USS is slower and requested only for up to five explicit
 PIDs. Missing/denied readings are not zeros. Memory PSI measures observed waiting,
@@ -146,7 +146,7 @@ and versions remain visible; this is not full anonymization.
 
 The flag lives in private user runtime storage, not persistent preferences.
 Without an explicit expiry it remains until disabled or runtime cleanup. Linger
-may keep it across logouts. Restarting CÓRTEX does not unmask it. Corrupt or
+may keep it across logouts. Restarting CORTEX does not unmask it. Corrupt or
 unreadable flags keep masking enabled. Optional expiry is 1–480 minutes.
 
 Support reports select fields and statuses; they do not attach screenshots,

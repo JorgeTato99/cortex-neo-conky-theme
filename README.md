@@ -1,179 +1,65 @@
-<div align="center">
+# CORTEX NEO · Conky Theme
 
-# CÓRTEX NEO
+**A living view of your Linux desktop.**
 
-**Tu escritorio Linux, en tiempo real.**
+[Español](README.es.md) · [Documentation](docs/README.md) · [Changelog](CHANGELOG.md) · [License](LICENSE)
 
-[English](README.en.md) · Código actual: **1.2.0** · [Guía de comandos](docs/README.md)
+CORTEX NEO is a configurable desktop dashboard built with Conky, Python and Lua. Independent neon cards show CPU, memory, GPU, disks, network, Docker, installed versions/builds, a calendar and optional manually configured weather. **Version 0.1.0** starts the new international repository while retaining the predecessor's diagnostic tools.
 
-Tarjetas Conky con estética neón, telemetría compartida y adaptación al espacio disponible.
+## Install in one command
 
-[![CI](https://github.com/JorgeTato99/cortex-neo/actions/workflows/ci.yml/badge.svg)](https://github.com/JorgeTato99/cortex-neo/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-55aeff.svg)](LICENSE)
-[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-6de4ef.svg)](pyproject.toml)
-
-</div>
-
-CÓRTEX NEO convierte información del sistema en un panel modular de escritorio.
-Python descubre y recopila los datos; Lua y Conky presentan tarjetas independientes
-con gráficas históricas, sin un gran fondo que cubra todo el escritorio.
-
-## Así se ve
-
-### Ryzen 7 5700X · RTX 4060 Ti
-
-2560 × 1440 píxeles · escalado de GNOME: **166,67 %**.
-
-![CÓRTEX NEO en la Ryzen a 2560 × 1440 y escalado del 166,67 %](assets/screenshots/ryzen-5700x-rtx4060ti.webp)
-
-### Dell Latitude 5420 · Intel Iris Xe
-
-1920 × 1080 píxeles · escalado de GNOME: **125 %**.
-
-![CÓRTEX NEO en la Dell a 1920 × 1080 y escalado del 125 %](assets/screenshots/dell-latitude-5420.webp)
-
-Son capturas de instalaciones reales. Los valores y las versiones representan
-el momento de la captura; no son datos incluidos en la configuración del tema.
-Las imágenes usan WebP sin pérdida y conservan todos los píxeles de la captura.
-[Equipos, escala y condiciones de las capturas](docs/validation/screenshots.md).
-
-## Qué muestra
-
-- **Sistema:** distribución y versión, kernel, compilación, arquitectura y reloj.
-- **CPU:** modelo, núcleos/hilos, temperatura, histórico y cinco procesos destacados.
-- **RAM:** capacidad, DDR, módulos y velocidad cuando están disponibles; histórico
-  y cinco aplicaciones agrupadas por consumo RSS.
-- **GPU:** modelo, driver y sensores disponibles. NVIDIA puede ofrecer uso/VRAM;
-  Intel puede ofrecer frecuencia en MHz sin inventar un porcentaje de uso.
-- **Almacenamiento:** uso del filesystem principal, discos montados y sin montar,
-  y rutas que permiten distinguir unidades del mismo modelo.
-- **Red y Docker:** tráfico e históricos, y contenedores de Engine/Desktop por separado.
-- **Versiones/builds:** aplicaciones y toolchains realmente instalados; las
-  categorías vacías desaparecen y los inventarios largos se paginan.
-- **Clima y calendario:** pronóstico de siete días con ciudad configurada a mano,
-  y calendario del mes con el día actual destacado.
-
-Las métricas se muestrean cada **2 segundos**. Un cambio de montaje refresca el
-inventario de almacenamiento; sin cambios, el inventario completo se consulta
-cada 30 segundos. Las consultas de versiones y clima tienen cadencias mayores.
-
-## Instalación rápida
-
-La ejecución requiere **Linux con sesión gráfica y systemd de usuario**. Las
-instalaciones verificadas usan Ubuntu Desktop, GNOME Wayland y Conky sobre XWayland.
-
-Descarga y extrae el [código ZIP](https://github.com/JorgeTato99/cortex-neo/archive/refs/heads/main.zip).
-Desde esa carpeta, en Ubuntu 24.04/26.04 o Debian 12/13:
+Download and extract the [source ZIP](https://github.com/JorgeTato99/cortex-neo-conky-theme/archive/refs/heads/main.zip). Open its directory and run as your desktop user:
 
 ```bash
 bash scripts/install.sh
 ```
 
-Un único instalador prepara Conky, GTK, fuentes y herramientas del sistema,
-crea el entorno Python y habilita los servicios de la sesión gráfica. Ejecuta
-como tu usuario; solo apt solicita sudo. Conserva las preferencias y prepara
-cada actualización antes de sustituir la versión activa. No instala Docker,
-lenguajes ni drivers: muestra los que encuentre en el equipo.
+The installer prepares Conky, fonts and dependencies, creates an immutable Python runtime, and enables user services. Only apt needs sudo. Ubuntu 24.04/26.04 and Debian 12/13 have automatic package profiles. Python 3.11+, a graphical Linux session and user systemd are required. [Installation details](docs/getting-started/installation.md).
 
-La tarjeta meteorológica permanece oculta hasta configurar una ciudad manual.
-Consulta [instalación y opciones](docs/getting-started/installation.md) para
-descargar el código, simular el plan o instalar sin arrancar todavía el panel.
-La [documentación](docs/README.md) reúne configuración, mantenimiento y diagnóstico.
-
-## Control y actualización
+## Make it yours
 
 ```bash
-~/.local/bin/cortex-neo start
-~/.local/bin/cortex-neo stop
-~/.local/bin/cortex-neo restart
-~/.local/bin/cortex-neo inventory
-~/.local/bin/cortex-neo capture
-~/.local/bin/cortex-neo version
+cortex-neo configure --language en --palette blue --font ubuntu
+cortex-neo configure --detail-level essential
+cortex-neo configure --profile compact --density comfortable
+cortex-neo configure --profile full --density complete --detail-level full
 ```
 
-Para actualizar, descarga y extrae una copia nueva del código y ejecuta desde
-ella el mismo instalador:
+If the command is not yet on PATH, use `~/.local/bin/cortex-neo`.
 
-```bash
-bash scripts/install.sh
-```
+- **Ten full palettes:** blue, teal, green, yellow, orange, red, pink, purple, slate and brown, matching Ubuntu 26's accent categories with colors adapted to this dark design.
+- **Three font profiles:** Ubuntu Sans Mono, DejaVu Sans Mono and Liberation Mono, with availability checks/fallback.
+- **Two languages:** English and Spanish, one implementation and parallel documentation.
+- **Independent detail level:** hide secondary specifications/builds while keeping primary information, graphs and process tops.
+- **Adaptive composition:** independent cards, matching margins, landscape/portrait, full/compact profiles and persistent opacity/card choices.
 
-La reinstalación aplica el código nuevo y reinicia únicamente los servicios del
-tema. Los archivos personales de `~/.config/cortex-neo/` se conservan. Consulta
-[actualización y desinstalación](docs/getting-started/updates-and-uninstall.md).
-El [recorrido desde ZIP y la identidad instalada](docs/getting-started/version-and-zip.md)
-permiten actualizar sin un clon ni sobrescribir el entorno activo.
+Edit simple JSON files under `~/.config/cortex-neo/`, or use the CLI. Updates preserve personal settings and manual city. Missing tools/sensors are omitted or marked unavailable rather than invented as zeros. [Configuration guide](docs/getting-started/configuration.md).
 
-## Herramientas para trabajar y diagnosticar
+## Understand your machine
 
-| Necesidad | Comando / guía |
+| Command | Purpose |
 |---|---|
-| Paletas, contraste, tarjetas y perfiles | `configure` · [Configuración](docs/getting-started/configuration.md) |
-| Medir el coste del dashboard | `performance` · [Rendimiento](docs/guides/performance.md) |
-| Entender RAM, swap, presión y memoria compartida | `memory` · [Memoria](docs/guides/memory.md) |
-| Ver servicios por motor y proyecto Compose | `containers` · [Docker](docs/guides/docker-projects.md) |
-| Conservar un episodio de lentitud | `incident` · [Incidentes](docs/guides/incidents.md) |
-| Consultar agregados de varias horas | `history` · [Historial](docs/guides/history.md) |
-| Medir una suite o compilación explícita | `run` / `tasks` · [Tareas](docs/guides/tasks.md) |
-| Dar contexto seleccionado a un agente | `context` · [Ficha](docs/guides/agent-context.md) |
-| Comparar herramientas, kernel y drivers | `baseline-save` / `compare` · [Referencias](docs/guides/baselines.md) |
-| Ocultar campos al grabar o preparar soporte | `presentation` / `report` · [Compartir](docs/guides/sharing.md) |
+| `doctor`, `version` | Diagnose dependencies/session and identify installed source |
+| `performance` | Observe dashboard CPU/RSS and payload cost |
+| `memory` | Inspect available memory, swap and PSI; explicit PSS/USS |
+| `containers` | Separate Engine/Desktop and Compose projects |
+| `incident`, `history` | Keep bounded diagnostic windows and numeric minute history |
+| `run`, `tasks` | Measure explicit build/test commands while preserving output/exit status |
+| `context`, `baseline-save`, `compare` | Review selected capabilities and compare named observations |
+| `presentation`, `report` | Hide personal dashboard labels and preview selected support output |
 
-Son controles locales y optativos. Las consultas usan datos observados y
-explican ausencias, cadencias y límites; no deducen causas de una lentitud ni
-administran automáticamente procesos, contenedores o equipos remotos.
+Reports are local and reviewed before sharing. Collection does not read command arguments or environments. Weather requires a manually configured city; there is no IP, GPS or Wi-Fi location detection. See [privacy](docs/reference/privacy.md) and [tool guides](docs/README.md).
 
-## Adaptación y equipos comprobados
+## Previews and evidence
 
-La disposición usa el área útil del monitor, excluye dock y barra superior, y
-escala juntas fuentes, gráficas, iconos y márgenes. CPU/RAM y GPU/discos comparten
-alturas; el calendario completa el borde inferior de su columna. También existe
-una disposición para pantallas verticales, validada mediante cálculo de geometría.
+[Historical real desktops](docs/validation/screenshots.md) document both physical resolution and GNOME scaling. New palette/font previews are separately labeled actual Conky renders with synthetic data. All repository screenshots use lossless compression and preserve their original dimensions.
 
-| Equipo | CPU / RAM | GPU | Pantalla | Sistema comprobado |
-|---|---|---|---|---|
-| Ryzen de escritorio | Ryzen 7 5700X, 64 GB DDR4 | RTX 4060 Ti 8 GB | 2560 × 1440, escalado 166,67 % | Ubuntu 26.04.1 LTS, GNOME Wayland |
-| Dell Latitude 5420 | Core i5-1135G7, 16 GB DDR4 | Intel Iris Xe | 1920 × 1080, escalado 125 % | Ubuntu 26.04.1 LTS, GNOME Wayland |
+The project is checked through Python 3.11–3.15, real Lua callbacks, native ARM64 logic tests, four clean distribution installation/render jobs and two physical Ubuntu GNOME machines. These layers do not certify every GPU/desktop combination. [Compatibility](docs/reference/compatibility.md) · [Testing](docs/validation/testing.md).
 
-El soporte de sensores depende del kernel, driver y permisos. El backend DRM
-incluye detección AMD, pero aún no se ha validado en un equipo AMD real.
-[Compatibilidad comprobada y experimental](docs/reference/compatibility.md).
-[Resultados y límites de la validación](docs/validation/testing.md).
+## Update, contribute and reuse
 
-## Privacidad y configuración
+Run the same installer from a newly extracted ZIP or your updated checkout, then check `cortex-neo version` and `cortex-neo doctor`. Failed activation restores the previous release. `cortex-neo uninstall` preserves personal data. [Lifecycle guide](docs/getting-started/updates-and-uninstall.md).
 
-La ubicación del clima es una **excepción manual**: no se obtiene de GeoIP, GPS,
-GeoClue ni identificadores Wi-Fi. Solo se envían al proveedor las coordenadas de
-ciudad que configures. Open-Meteo recibe la petición meteorológica y su conexión
-de red ordinaria; esto no equivale a ocultar tu IP ante ese proveedor.
+[Contributions](CONTRIBUTING.md), [compatibility reports](docs/validation/community.md) and new translations are welcome. English source docs and Spanish counterparts live in one branch; see [localization](docs/reference/localization.md).
 
-Preferencias, cachés, capturas y respaldos de cada equipo se guardan fuera del
-código mediante rutas XDG. El repositorio incluye ejemplos vacíos de ubicación.
-[Datos, ubicación y capturas](docs/reference/privacy.md).
-
-## Estructura
-
-```text
-cortex_neo/             Recolección, inventario, geometría y supervisión
-theme/cards/            Una plantilla por tarjeta
-theme/*.lua             Presentación, calendario y bloques opcionales
-config/                 Ejemplos editables, sin ubicación personal
-systemd/                Servicios de usuario
-scripts/                Instalación y comprobaciones
-tests/                  Casos de ausencia, error y portabilidad
-docs/                   Uso, arquitectura, privacidad y validación
-assets/screenshots/     Capturas documentales de los dos equipos
-.github/                Integración continua y plantillas
-```
-
-Para modificar el tema o contribuir: [CONTRIBUTING.md](CONTRIBUTING.md).
-Las decisiones de diseño se explican en [la arquitectura](docs/reference/architecture.md).
-
-## Autoría y licencia
-
-Creado por **[Jorge Hernández Montero · JorgeTato99](https://github.com/JorgeTato99)**.
-
-El código de CÓRTEX NEO se distribuye bajo la [licencia MIT](LICENSE). Puedes
-usarlo, modificarlo y redistribuirlo conservando el aviso de copyright y la licencia.
-Los componentes y recursos de terceros conservan sus propias licencias;
-consulta [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Created by [Jorge Hernández Montero · JorgeTato99](https://github.com/JorgeTato99). MIT licensed: retain the copyright notice and license when reusing this work. External fonts, icons, weather data and software retain their own rights; see [third-party notices](THIRD_PARTY_NOTICES.md).
