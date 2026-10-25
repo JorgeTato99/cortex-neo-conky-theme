@@ -1,36 +1,18 @@
-# Evidencia comunitaria de compatibilidad
+# Community compatibility reports
 
-La matriz de [pruebas](testing.md) distingue contratos, renderizado aislado y
-sesiones físicas. Un informe de otra persona no amplía automáticamente el
-soporte declarado: necesita condiciones, versión y evidencia reproducible.
+A useful report records project version/revision, distribution, desktop/session type, GPU/driver, physical resolution, desktop scaling and the checks actually performed. Review support output/screenshots before sharing; omit serial numbers and personal identifiers.
 
-## Cómo informar
+Keep evidence levels distinct:
 
-Usa la plantilla «Compatibility report» del repositorio. Incluye distribución,
-sesión/escritorio, versión de CÓRTEX y Conky, resolución física y escalado del
-escritorio. La escala interna del tema es un dato distinto. Pega un informe de
-soporte revisado y describe qué comprobaste contra otra herramienta.
+- Installation: installer, actual dependency imports and service startup.
+- Composition: visible readable cards without overlap/cropping under documented conditions.
+- Metrics: values/units checked against an independent source.
+- Recovery: behavior after a described display/provider/service change.
 
-No publiques snapshots completos, variables de entorno, claves ni registros
-privados. Una captura es opcional y puede mostrar datos de otras ventanas;
-el modo presentación protege solo los campos reconocidos del dashboard.
+State what remains untested. GPU fixtures do not establish physical validation; Xvfb does not stand in for GNOME/KDE portals or drivers. A successful report is evidence, not an automatic compatibility guarantee.
 
-## Niveles de evidencia
-
-- **Instalación:** dependencias e importaciones funcionan.
-- **Presentación:** tarjetas visibles, sin solapamiento ni recorte en condiciones documentadas.
-- **Métricas:** unidades y valores contrastados con una fuente independiente.
-- **Recuperación:** comportamiento después de un cambio o fallo descrito.
-
-Cada informe debe indicar lo no comprobado. Fixtures de GPU no son validación
-física; Xvfb no equivale a GNOME/KDE ni a sus portales/controladores.
-
-## Registro de informes incorporados
-
-| Fecha / versión o commit | Equipo y entorno | Resolución / escalado | Nivel y evidencia | Limitaciones |
+| Incorporated report | Environment | Resolution / scaling | Evidence | Limits |
 |---|---|---|---|---|
-| Sin entradas comunitarias incorporadas en este documento | — | — | — | La evidencia de los dos equipos iniciales está en [capturas](screenshots.md) |
+| No community reports incorporated yet | — | — | — | Initial two machines are documented in screenshots |
 
-Al incorporar una entrada, enlazar el issue y las condiciones, sin números de
-serie ni identificadores personales. Fechar cambios de versión/controlador y
-evitar presentar informes antiguos como garantía de compatibilidad actual.
+Use the repository compatibility issue form. Link the issue when incorporating a report, date software/driver changes and avoid presenting old results as permanent certification.
