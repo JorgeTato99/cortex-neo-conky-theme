@@ -1,39 +1,20 @@
-# Medir una tarea de desarrollo
+# Measure development commands
 
-Desde la carpeta de tu proyecto:
+From your project directory:
 
 ```bash
-cortex-neo run --label backend-tests -- npm test
+cortex-neo run --label frontend-tests -- npm test
 cortex-neo run --label rust-tests --timeout 900 -- cargo test
 cortex-neo tasks
 cortex-neo tasks --format json
 ```
 
-`run` ejecuta los argumentos como programa, sin una shell intermediaria. Conserva
-la salida normal del comando y su código de salida; el resumen de CÓRTEX aparece
-en stderr. Para una operación de shell, invoca explícitamente la shell deseada.
-No se modifica la carpeta de trabajo ni se añaden instaladores o comandos extra.
+`run` executes explicit argv without an implicit shell, preserving stdout/stderr and the command exit code; its summary goes to stderr. Invoke a shell explicitly if needed. It does not change your working directory, install tools or inject extra commands.
 
-El registro privado conserva etiqueta, duración, resultado, CPU observada y pico
-RSS del árbol de procesos. No guarda el comando, sus argumentos, la carpeta,
-variables de entorno, stdout ni stderr. El muestreo opt-in es de 0,2 segundos y
-se limita a los procesos de esa tarea; se siguen como máximo 4096 identidades
-PID+nacimiento. Sin observaciones los recursos quedan nulos, no en cero.
+Private records keep your label, duration, outcome, observed CPU and process-tree peak RSS. They never store argv, environment, working directory or output. Opt-in 0.2-second sampling follows only task identities (PID plus birth time), bounded to 4096. Unobserved resource values are null.
 
-Los recursos son observados, no una medición exhaustiva: pueden perderse picos
-y descendientes muy breves o desacoplados. RSS incluye páginas compartidas.
-Una tarea de Docker puede hacer trabajo en un daemon ajeno a ese árbol y ese
-trabajo no queda atribuido íntegramente al cliente. Compara ejecuciones con la
-misma etiqueta y condiciones; diferencias aisladas no demuestran regresión.
+Brief/detached descendants and peaks can be missed. Shared RSS is not private memory. Work delegated to an existing Docker daemon is outside the client process tree and is not fully attributable. Compare equal labels/conditions; isolated differences do not prove regression.
 
-Sin `--timeout`, el comando conserva su duración natural. Un timeout admite
-0,1 segundos a siete días y devuelve 124; Ctrl+C devuelve 130. La cancelación
-señala únicamente el grupo creado y las identidades propias verificadas, intenta
-terminación y después fuerza el cierre si es necesario. El registro indica si
-quedaron descendientes conocidos. No es un sandbox ni un límite de CPU/RAM.
-Si faltan permisos o un descendiente se desacopla, el cierre puede quedar
-incompleto; se informa y no se elevan privilegios automáticamente.
+Without timeout the command keeps its natural duration. Timeout accepts 0.1 seconds to seven days and returns 124; interruption returns 130. Cancellation targets the created process group and verified owned identities, tries termination and then bounded forced shutdown. Known remaining descendants are reported. This is not a sandbox or resource quota; permission failures do not trigger privilege escalation.
 
-Se conservan diez registros propios en `~/.local/state/cortex-neo/tasks/`, con
-publicación atómica y permisos privados. Un fallo de lanzamiento también queda
-registrado, con 127 para programa ausente y 126 para permisos insuficientes.
+Ten owned private records are retained under `~/.local/state/cortex-neo/tasks/`. Launch failure is recorded too: 127 for a missing program, 126 for insufficient permissions.
