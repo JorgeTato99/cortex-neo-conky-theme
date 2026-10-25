@@ -40,14 +40,14 @@ return function(H)
                 subtitle[#subtitle + 1] = H.clean(osinfo[key])
             end
         end
-        if #subtitle > 0 then
+        if H.detailed() and #subtitle > 0 then
             lines[#lines + 1] = "${font}${color3}" .. table.concat(subtitle, " / ")
         end
         local details = {
-            data().hostname,
-            osinfo.kernel and ("Kernel " .. osinfo.kernel),
-            osinfo.signature,
-            osinfo.compiled,
+            data().hostname or "",
+            osinfo.kernel and ("Kernel " .. osinfo.kernel) or "",
+            osinfo.signature or "",
+            osinfo.compiled or "",
         }
         if
             H.private_mode()
@@ -56,6 +56,9 @@ return function(H)
             or H.ui.presentation_profile == "compact"
         then
             details = { osinfo.kernel and ("Kernel " .. osinfo.kernel) }
+        end
+        if not H.detailed() then
+            details = {}
         end
         for _, value in ipairs(details) do
             if value and value ~= "" then
@@ -329,8 +332,10 @@ return function(H)
                 math.floor((card.width - 2 * (H.ui.padding or 14)) / (H.font(11) * 0.8))
             )
             local version = H.short(entry.version, math.max(8, math.floor(columns * 0.65)))
-            local label =
-                H.short(H.t(entry.label), math.max(6, columns - (utf8.len(version) or #version) - 2))
+            local label = H.short(
+                H.t(entry.label),
+                math.max(6, columns - (utf8.len(version) or #version) - 2)
+            )
             out[#out + 1] = "${voffset 6}${font Ubuntu Sans Mono:style=Bold:size=11}${color}"
                 .. label
                 .. "${alignr}${color1}"

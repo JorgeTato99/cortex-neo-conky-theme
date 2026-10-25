@@ -54,6 +54,10 @@ Example: add a complete new dashboard capability in 0.2.0; correct a stale-value
 - Brand standardized to **CORTEX NEO**; public repository named **cortex-neo-conky-theme**. Existing `cortex-neo` CLI, user services and XDG data paths remain stable for upgrades.
 - English documentation is primary; Spanish is under `docs/es/` and `README.es.md`. Legacy palette names remain readable for migration.
 
+### 🐛 Fixed
+
+- Available OS metadata remains visible in full mode even when a hostname is absent.
+
 ### 📚 Documentation
 
 - Bilingual installation, appearance, lifecycle, diagnostic tools, architecture, privacy, compatibility and contribution guides.

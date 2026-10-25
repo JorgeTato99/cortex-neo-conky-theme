@@ -52,6 +52,10 @@ Ejemplo: una capacidad completa nueva puede ir en 0.2.0; corregir valores obsole
 - Marca **CORTEX NEO** y repositorio **cortex-neo-conky-theme**. CLI, servicios y rutas XDG `cortex-neo` estables para actualizar.
 - Documentación principal inglesa; español en `docs/es/` y `README.es.md`. Nombres antiguos de paleta conservados para migración.
 
+### 🐛 Fixed
+
+- Los metadatos disponibles del SO se conservan en modo completo aunque falte el hostname.
+
 ### 📚 Documentation
 
 - Guías bilingües de instalación, apariencia, ciclo de vida, diagnóstico, arquitectura, privacidad, compatibilidad y contribución.

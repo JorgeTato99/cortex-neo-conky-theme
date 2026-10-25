@@ -1,7 +1,6 @@
 """Appearance choices preserve data, safe generation and bilingual contracts."""
 
 import json
-import string
 import tempfile
 import time
 import unittest
@@ -89,7 +88,6 @@ class AppearanceTests(unittest.TestCase):
         en, es = catalog("en"), catalog("es")
         self.assertGreater(len(en), 150)
         self.assertEqual(en.keys(), es.keys())
-        formatter = string.Formatter()
         for key in en:
             # Conky markup has literal braces; compare only Python format placeholders.
             def fields(text):
@@ -97,11 +95,11 @@ class AppearanceTests(unittest.TestCase):
 
             self.assertEqual(fields(en[key]), fields(es[key]), key)
         self.assertEqual(catalog("../../invalid"), en)
-        self.assertIsNotNone(formatter)
 
     def test_essential_hides_metadata_without_hiding_main_facts(self):
         snapshot = {
             "sampled_at": time.time(),
+            "os": {"name": "Test Linux", "codename": "test-codename", "kernel": "test-kernel"},
             "hardware": {
                 "cpu_model": "Test CPU",
                 "cpu_topology": "8 cores / 16 threads",
@@ -128,6 +126,8 @@ class AppearanceTests(unittest.TestCase):
             self.assertEqual("DDR4" in view.call("ram_meta"), level == "full")
             self.assertEqual("secret-driver" in view.call("gpu_meta"), level == "full")
             self.assertEqual("private-build" in view.call("software"), level == "full")
+            self.assertIn("Test Linux", view.call("system_meta"))
+            self.assertEqual("test-kernel" in view.call("system_meta"), level == "full")
 
     def test_languages_translate_static_content_not_device_strings(self):
         snapshot = {
