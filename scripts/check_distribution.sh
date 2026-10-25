@@ -36,6 +36,8 @@ CORTEX_NEO_HEADLESS_TEST=1 xvfb-run -a -s '-screen 0 1920x1080x24' \
     "$python" scripts/render_smoke.py --output "$HOME/render.png"
 CORTEX_NEO_HEADLESS_TEST=1 xvfb-run -a -s '-screen 0 1920x1080x24' \
     "$python" scripts/render_smoke.py --profile compact --density comfortable --output "$HOME/render-compact.png"
+CORTEX_NEO_HEADLESS_TEST=1 xvfb-run -a -s '-screen 0 1920x1080x24' \
+    "$python" scripts/render_smoke.py --palette purple --font liberation --language es --detail-level essential --output "$HOME/render-spanish.png"
 bash scripts/install.sh --uninstall
 test ! -e "$HOME/.local/share/cortex-neo"
 test -f "$HOME/.config/cortex-neo/settings.json"
@@ -45,3 +47,5 @@ TEST
 mkdir -p "$source_root/artifacts"
 cp "$test_home/render.png" "$source_root/artifacts/distribution-render.png"
 cp "$test_home/render-compact.png" "$source_root/artifacts/distribution-render-compact.png"
+
+cp "$test_home/render-spanish.png" "$source_root/artifacts/distribution-render-spanish.png"

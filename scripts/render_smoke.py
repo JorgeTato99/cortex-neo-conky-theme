@@ -19,6 +19,10 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--profile", choices=["full", "compact"], default="full")
     parser.add_argument("--density", choices=["complete", "comfortable"], default="complete")
+    parser.add_argument("--palette", default="blue")
+    parser.add_argument("--font", choices=["ubuntu", "dejavu", "liberation"], default="ubuntu")
+    parser.add_argument("--language", choices=["en", "es"], default="en")
+    parser.add_argument("--detail-level", choices=["essential", "full"], default="full")
     options = parser.parse_args()
     if os.environ.get("CORTEX_NEO_HEADLESS_TEST") != "1":
         parser.error(
@@ -84,7 +88,20 @@ def main():
                         "total": 100e9,
                     }
                 ],
-                "software": [{"label": "Python", "version": "fixture", "group": "Lenguajes"}],
+                "software": [
+                    {
+                        "label": "Python",
+                        "version": "3.14",
+                        "group": "Languages",
+                        "detail": "CPython fixture build",
+                    },
+                    {
+                        "label": "Rust",
+                        "version": "1.99",
+                        "group": "Languages",
+                        "detail": "LLVM fixture build",
+                    },
+                ],
                 "network": {"interface": "eth0", "rx": 100, "tx": 50},
                 "calendar": {
                     "year": 2026,
@@ -113,6 +130,16 @@ def main():
             banner = subprocess.check_output(["conky", "--version"], text=True)
             plan = calculate(
                 (0, 0, 1536, 864), snapshot, profile=options.profile, density=options.density
+            )
+            from cortex_neo.palettes import PALETTES
+
+            if options.palette not in PALETTES:
+                parser.error("Unknown palette")
+            plan.update(
+                theme={"palette": options.palette},
+                font=options.font,
+                language=options.language,
+                detail_level=options.detail_level,
             )
             generation = generate(plan, snapshot, capabilities(banner))
             environment = {
@@ -157,6 +184,12 @@ def main():
                         "changed_bytes": changed,
                         "conky": capabilities(banner)["version"],
                         "capture": str(options.output),
+                        "palette": options.palette,
+                        "font": options.font,
+                        "language": options.language,
+                        "detail_level": options.detail_level,
+                        "resolution": [1920, 1080],
+                        "desktop_scale": 1,
                     }
                 )
             )
