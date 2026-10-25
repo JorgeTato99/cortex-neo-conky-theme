@@ -13,4 +13,5 @@ for script in scripts/*.sh; do
     bash -n "$script"
 done
 "$python_bin" scripts/check_docs.py
+"$python_bin" scripts/generate_readme.py --check
 "$python_bin" -m unittest discover -s tests -v
