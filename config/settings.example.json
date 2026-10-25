@@ -5,5 +5,8 @@
   "layout": "auto",
   "profile": "auto",
   "density": "complete",
-  "history_hours": 24
+  "history_hours": 24,
+  "language": "en",
+  "detail_level": "full",
+  "font": "ubuntu"
 }

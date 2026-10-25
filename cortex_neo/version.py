@@ -43,7 +43,7 @@ def _git(root, *arguments):
 def _fingerprint(root):
     candidates = []
     types = {
-        "cortex_neo": {".py"},
+        "cortex_neo": {".py", ".json"},
         "theme": {".lua", ".conky"},
         "scripts": {".py", ".sh"},
         "systemd": {".service"},

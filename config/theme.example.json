@@ -1,6 +1,6 @@
 {
-  "_documentation": "Personal preferences live in the XDG config directory. Colors are six hexadecimal digits without #. Opacity is 0–1. Unknown or unsafe values fall back safely.",
-  "palette": "neon",
+  "_documentation": "Personal preferences live in the XDG config directory. Colors are six hexadecimal digits without #. Opacity is 0\u00e2\u20ac\u201c1. Unknown or unsafe values fall back safely.",
+  "palette": "blue",
   "opacity": 0.7450980392156863,
   "background": "081220",
   "colors": {}
