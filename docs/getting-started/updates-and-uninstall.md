@@ -1,63 +1,23 @@
-# Actualización, recuperación y desinstalación
+# Updates and removal
 
-## Actualizar
-
-Descarga y extrae una nueva copia del código en una carpeta distinta y ejecuta
-el mismo comando de instalación desde ella. No es necesario tener un clon Git:
+Download a new source ZIP into a separate directory, or update your own checkout, then run the installer again as the same desktop user:
 
 ```bash
 bash scripts/install.sh
+cortex-neo version
+cortex-neo doctor
 ```
 
-Si usas Git, selecciona el estado deseado con tu flujo habitual antes de
-instalar. Comprueba después `cortex-neo version`; consulta
-[identidad y actualización desde ZIP](version-and-zip.md).
+The installer builds an immutable release and its environment before switching the stable `~/.local/share/cortex-neo` link. Activation failure restores the previous release and saved controls/configuration. An installation lock rejects concurrent update/removal. It refuses unrelated directories and unmanaged releases.
 
-En un equipo cuyas dependencias ya están preparadas puedes usar
-`bash scripts/install.sh --skip-system-deps`.
-
-Primero se copia la versión a una carpeta nueva y se construye allí su entorno
-virtual. Las rutas de los entornos no se renombran: los ejecutables instalados
-por pip conservan sus rutas válidas. Solo después de verificar las dependencias
-se detienen los servicios del tema y se cambia el enlace de la versión activa.
-
-La configuración existente no se sobrescribe. Antes de activar se respaldan
-las preferencias y los accesos/unidades previos. Si falla la activación se
-recuperan la versión anterior, su entorno y los controles anteriores. Se intenta
-arrancar de nuevo el servicio que estaba activo. Un fallo de energía o del propio
-gestor de servicios puede requerir recuperación manual; el respaldo no sustituye
-una copia externa de tus datos.
-
-## Rutas administradas
-
-| Contenido | Ruta predeterminada |
-|---|---|
-| Enlace a la versión activa | `~/.local/share/cortex-neo` |
-| Código y entorno de cada versión | `~/.local/share/cortex-neo-releases/<id>/` |
-| Preferencias y ciudad | `~/.config/cortex-neo/` |
-| Métricas e históricos | `~/.cache/cortex-neo/` |
-| Respaldos y capturas | `~/.local/state/cortex-neo/` |
-
-Se respetan las variables XDG absolutas correspondientes. Los comandos del
-usuario permanecen en `~/.local/bin/`. Al actualizar una instalación anterior
-basada en una carpeta, esta se conserva como versión `legacy-<id>`.
-
-Los respaldos de controles y configuración están en `backups/<id>` dentro de la
-ruta de estado. La versión activa incluye `installation.json`, que registra la
-versión previa y el respaldo. No se borran automáticamente versiones anteriores
-durante las actualizaciones.
-
-## Desinstalar
+Personal settings, manual weather location, history and private records are preserved. Edited launchers are not silently deleted. Releases and backups are under XDG data/state directories; inspect their ownership before manual cleanup. Never remove the active virtual environment or edit an installed release as if it were your source checkout.
 
 ```bash
 cortex-neo uninstall
+# Or, from an extracted source directory:
+bash scripts/install.sh --uninstall
 ```
 
-También se puede usar `bash scripts/install.sh --uninstall` desde el código.
-Se detienen únicamente los dos servicios del tema y se eliminan los accesos y
-versiones administrados. Los accesos modificados por el usuario se conservan y
-se indican en la salida. **Configuración, caché y respaldos se conservan**.
+Removal disables the project's user units and removes only owned installation controls. Configuration, cache, state and backups remain, so reinstalling can recover your choices. It does not uninstall distribution packages shared with other applications, delete projects or stop Docker/RustDesk.
 
-No se desinstalan Conky, las fuentes ni otros paquetes compartidos del SO.
-Una instalación antigua sin marcador debe actualizarse primero para poder usar
-esta desinstalación. No hay una opción de purga automática de datos personales.
+The repository was renamed for v0.1.0. Runtime command names, service names and XDG paths stay `cortex-neo`; existing personal data need not move. See [version identification](version-and-zip.md).
