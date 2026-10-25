@@ -1,5 +1,5 @@
 [Unit]
-Description=CÓRTEX NEO shared telemetry
+Description=CÃ“RTEX NEO shared telemetry
 PartOf=graphical-session.target cortex-neo.service
 
 [Service]

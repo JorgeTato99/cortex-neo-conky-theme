@@ -1,5 +1,5 @@
 [Unit]
-Description=CÓRTEX NEO desktop cards
+Description=CÃ“RTEX NEO desktop cards
 Requires=cortex-neo-metrics.service
 After=cortex-neo-metrics.service
 PartOf=graphical-session.target
