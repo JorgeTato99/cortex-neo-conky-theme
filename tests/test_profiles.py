@@ -54,4 +54,4 @@ class ProfileTests(unittest.TestCase):
         self.assertGreaterEqual(
             min(map(int, re.findall(r"size=(\d+)", view.call("memory_top")))), 9
         )
-        self.assertIn("En vivo", view.call("status"))
+        self.assertIn("Live", view.call("status"))

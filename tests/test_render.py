@@ -19,9 +19,9 @@ class RenderTests(unittest.TestCase):
     def test_no_language_heading_without_languages(self):
         self.assertEqual(self.view({"software": []}).call("software"), "")
         value = self.view(
-            {"software": [dict(label="Code", version="1.0", detail="", group="Aplicaciones")]}
+            {"software": [dict(label="Code", version="1.0", detail="", group="Applications")]}
         ).call("software")
-        self.assertIn("APLICACIONES", value)
+        self.assertIn("APPLICATIONS", value)
         self.assertNotIn("LENGUAJES", value)
         self.assertNotIn("Rust", value)
 
@@ -37,13 +37,13 @@ class RenderTests(unittest.TestCase):
                 label=f"APP_{i:02d}",
                 version="1.0",
                 detail="Build " + ("a" * 100),
-                group="Lenguajes",
+                group="Languages",
             )
             for i in range(30)
         ]
         view = self.view({"software": entries})
         first = view.call("software", 1)
-        total = int(re.search(r"Pagina 1 / (\d+)", first).group(1))
+        total = int(re.search("Page 1 / (\\d+)", first).group(1))
         self.assertGreater(total, 1)
         pages = "\n".join(view.call("software", i) for i in range(1, total + 1))
         for item in entries:
@@ -69,7 +69,7 @@ class RenderTests(unittest.TestCase):
 
     def test_small_monitor_scales_callback_fonts_as_well_as_card_sizes(self):
         text = self.view(
-            {"software": [dict(label="Go", version="1.0", detail="", group="Lenguajes")]}, 0.88
+            {"software": [dict(label="Go", version="1.0", detail="", group="Languages")]}, 0.88
         ).call("software")
         self.assertIn("size=10", text)
         self.assertNotIn("size=11", text)
@@ -78,7 +78,7 @@ class RenderTests(unittest.TestCase):
         text = self.view(
             {"docker_contexts": ["default"], "docker": {"default": {"running": 2}}}
         ).call("containers")
-        self.assertIn("Engine: 2 activos", text)
+        self.assertIn("Engine: 2 running", text)
         self.assertNotIn("Desktop", text)
 
     def test_storage_distinguishes_mounted_ssds_by_target(self):
@@ -91,6 +91,6 @@ class RenderTests(unittest.TestCase):
                 ]
             }
         )
-        self.assertEqual(view.call("disk_summary"), "2 montados / 1 sin montar")
+        self.assertEqual(view.call("disk_summary"), "2 mounted / 1 unmounted")
         self.assertIn("/srv/dev 0.0%", view.call("other_disks", 1))
-        self.assertIn("/ · USO", view.call("disk_usage"))
+        self.assertIn("/ · USED", view.call("disk_usage"))

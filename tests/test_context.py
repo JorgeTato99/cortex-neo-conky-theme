@@ -11,13 +11,13 @@ class ContextTests(unittest.TestCase):
         result = context_report(
             {
                 "software": [
-                    {"label": "Python (activa/SO)", "version": "3.14"},
+                    {"label": "Python (active/OS)", "version": "3.14"},
                     {"label": "C/C++", "version": "/home/PRIVATE/tool"},
                 ]
             }
         )
         self.assertEqual(
-            {item["label"] for item in result["software"]}, {"Python (activa/SO)", "C/C++"}
+            {item["label"] for item in result["software"]}, {"Python (active/OS)", "C/C++"}
         )
         self.assertNotIn("PRIVATE", json.dumps(result))
 
@@ -60,7 +60,7 @@ class ContextTests(unittest.TestCase):
         report = context_report({"sampled_at": 100, "software_ready": False}, now=120)
         self.assertFalse(report["fresh"])
         self.assertFalse(report["software_complete"])
-        self.assertIn("no implica", context_text(report))
+        self.assertIn("does not mean", context_text(report))
         missing = context_report(None, now=120)
         self.assertEqual(missing["status"], "unavailable")
         self.assertIsNone(missing["age_seconds"])

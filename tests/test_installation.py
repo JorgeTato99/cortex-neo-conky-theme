@@ -161,7 +161,7 @@ class InstallationTests(unittest.TestCase):
         (self.paths.target / "theme/formatter.lua").touch()
         self.paths.applications.mkdir(parents=True)
         old = self.paths.applications / "conky.desktop"
-        old.write_text("Name=Conky CÓRTEX NEO\n")
+        old.write_text("Name=Conky CORTEX NEO\n")
         self.install("--no-start")
         self.assertFalse(old.exists())
         self.assertTrue(self.paths.target.is_symlink())
@@ -219,7 +219,7 @@ class InstallationTests(unittest.TestCase):
 
     def test_concurrent_operations_are_rejected_and_lock_is_released(self):
         with installer.installation_lock(self.paths):
-            with self.assertRaisesRegex(RuntimeError, "en curso"):
+            with self.assertRaisesRegex(RuntimeError, "in progress"):
                 with installer.installation_lock(self.paths):
                     self.fail("Concurrent operation acquired the lock")
         with installer.installation_lock(self.paths):

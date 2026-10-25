@@ -24,7 +24,7 @@ class SharingTests(unittest.TestCase):
             )
             self.addCleanup(view.close)
             self.assertIn("PRIVATE-HOST", view.call("system_meta"))
-            self.assertIn("En vivo", view.call("status"))
+            self.assertIn("Live", view.call("status"))
 
     def test_runtime_expiry_off_and_corrupt_flags_fail_closed(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -83,7 +83,7 @@ class SharingTests(unittest.TestCase):
             )
         ]
         self.assertNotIn("PRIVATE", "\n".join(values))
-        self.assertIn("Presentación", view.call("status"))
+        self.assertIn("Presentation", view.call("status"))
         self.assertNotIn("weather", calculate((0, 0, 1500, 900), snapshot)["cards"])
 
     def test_runtime_flag_masks_even_when_collector_snapshot_did_not_change(self):
@@ -116,4 +116,4 @@ class SharingTests(unittest.TestCase):
         self.assertEqual(report["display"]["workarea_size"], [1400, 800])
         self.assertEqual(report["conky"]["version"], "1.22.2")
         self.assertIn("Conky: 1.22.2", support_text(report))
-        self.assertIn("Versión: 1.2.0", support_text(report))
+        self.assertIn("Version: 0.1.0", support_text(report))

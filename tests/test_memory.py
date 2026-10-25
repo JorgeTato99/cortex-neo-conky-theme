@@ -25,7 +25,7 @@ class MemoryTests(unittest.TestCase):
         }
         view = LuaHarness(snapshot)
         self.addCleanup(view.close)
-        self.assertIn("disp 7.0G", view.call("memory_usage"))
+        self.assertIn("avail 7.0G", view.call("memory_usage"))
         self.assertIn("[VM]", view.call("memory_top"))
         self.assertIn("PSI —", view.call("memory_top"))
         self.assertNotIn("Docker", view.call("memory_top"))
@@ -37,8 +37,8 @@ class MemoryTests(unittest.TestCase):
         self.assertEqual(zero["some"]["avg10"], 0)
         self.assertIsNone(parse_pressure("some avg10=nan avg60=0 avg300=0 total=-1"))
         self.assertIsNone(parse_pressure(""))
-        self.assertIn("No se observaron", explain_memory({"pressure": zero}))
-        self.assertIn("no disponible", explain_memory({}))
+        self.assertIn("No memory stalls observed", explain_memory({"pressure": zero}))
+        self.assertIn("unavailable", explain_memory({}))
 
     def test_swap_rates_and_available_keep_host_scope(self):
         with tempfile.TemporaryDirectory() as directory:

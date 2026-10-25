@@ -19,7 +19,7 @@ class AdoptionTests(unittest.TestCase):
             source, release = root / "source", root / "release"
             (source / "cortex_neo").mkdir(parents=True)
             (source / ".git").mkdir()
-            (source / "pyproject.toml").write_text('[project]\nversion="1.2.0"\n')
+            (source / "pyproject.toml").write_text('[project]\nversion="0.1.0"\n')
             (source / "cortex_neo/_revision.txt").write_text("$Format:%H$")
             release.mkdir()
             shutil.copytree(source / "cortex_neo", release / "cortex_neo")
@@ -41,12 +41,12 @@ class AdoptionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             (root / "cortex_neo").mkdir()
-            (root / "pyproject.toml").write_text('[project]\nversion = "1.2.0"\n')
+            (root / "pyproject.toml").write_text('[project]\nversion = "0.1.0"\n')
             (root / "cortex_neo/_revision.txt").write_text("a" * 40)
             code = root / "cortex_neo/provider.py"
             code.write_text("value = 1\n")
             before = version_info(root, allow_git=False)
-            self.assertEqual(before["version"], "1.2.0")
+            self.assertEqual(before["version"], "0.1.0")
             self.assertEqual(before["revision"], "a" * 40)
             self.assertEqual(len(before["source_fingerprint"]), 64)
             (root / "installation.json").write_text(
@@ -82,5 +82,5 @@ class AdoptionTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stderr)
         report = json.loads(result.stdout)
-        self.assertEqual(report["version"], "1.2.0")
+        self.assertEqual(report["version"], "0.1.0")
         self.assertEqual(len(report["source_fingerprint"]), 64)

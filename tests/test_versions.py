@@ -24,7 +24,7 @@ class VersionTests(unittest.TestCase):
             self.assertEqual(versions.installed_versions(), [])
 
     def test_dpkg_partial_output_is_preserved(self):
-        output = "code\t1.2.3\tii \nbrave-browser\t1.2.0\trc \ndocker-ce\t5:29.9.2-1\tii "
+        output = "code\t1.2.3\tii \nbrave-browser\t0.1.0\trc \ndocker-ce\t5:29.9.2-1\tii "
         with patch.object(versions, "command", return_value=output) as probe:
             self.assertEqual(versions.packages(), {"code": "1.2.3", "docker-ce": "5:29.9.2-1"})
             self.assertEqual(probe.call_args.kwargs["accepted"], (0, 1))
@@ -37,7 +37,7 @@ class VersionTests(unittest.TestCase):
             patch.object(
                 versions,
                 "applications",
-                return_value=[dict(label="Brave", version="1.2", detail="", group="Aplicaciones")],
+                return_value=[dict(label="Brave", version="1.2", detail="", group="Applications")],
             ),
             patch.object(versions, "node_versions", new=broken_node_probe),
             patch.object(versions, "python_versions", return_value=[]),
