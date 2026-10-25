@@ -1,14 +1,7 @@
-# Seguridad
+# Security
 
-Para informar de un fallo que pueda exponer información, ejecutar comandos no
-previstos o afectar archivos fuera de las rutas del tema, utiliza
-[el reporte privado de vulnerabilidades](https://github.com/JorgeTato99/cortex-neo/security/advisories/new).
-No publiques claves, tokens, ubicaciones personales ni snapshots completos en un issue.
+[Español](docs/es/security.md)
 
-Indica la versión o commit, distribución, una reproducción mínima y el impacto
-observado. El proyecto es de mantenimiento personal y no ofrece un plazo de
-respuesta garantizado. Las correcciones se preparan sobre la versión pública más
-reciente; no hay una política de backports a ramas antiguas.
+Report possible data exposure, unintended command execution or writes outside owned project paths through [private vulnerability reporting](https://github.com/JorgeTato99/cortex-neo-conky-theme/security/advisories/new). Do not publish keys, tokens, exact personal locations or full snapshots in issues.
 
-Para errores visuales o sensores ausentes, utiliza el formulario de bugs.
-Consulta también [privacidad](docs/reference/privacy.md).
+Include version/commit, distribution, minimal reproduction and observed impact. This personally maintained project has no guaranteed response time. Fixes target the latest public version; there is no old-branch backport policy. Use ordinary bug reports for visual/sensor problems. See [privacy](docs/reference/privacy.md).

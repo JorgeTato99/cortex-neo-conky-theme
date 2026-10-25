@@ -1,18 +1,17 @@
-# Componentes, datos y recursos de terceros
+# Third-party components, data and resources
 
-La licencia MIT del repositorio cubre el código y la documentación originales de
-CÓRTEX NEO. No cambia las licencias de programas externos, bibliotecas, fuentes,
-iconos, fondos de pantalla ni marcas que aparezcan en las capturas.
+[Español](docs/es/third-party-notices.md)
 
-| Recurso | Uso y atribución |
+MIT covers original CORTEX NEO code/documentation. It does not relicense external programs, fonts, icons, wallpapers or trademarks shown in captures.
+
+| Resource | Use and attribution |
 |---|---|
-| [Conky](https://github.com/brndnmtthws/conky) | Motor externo de escritorio; se instala desde la distribución y conserva su licencia. |
-| [psutil](https://github.com/giampaolo/psutil) | Telemetría de procesos y sistema; dependencia con licencia BSD de tres cláusulas. |
-| [nvidia-ml-py](https://pypi.org/project/nvidia-ml-py/) | Bindings opcionales de NVML; se distribuyen separadamente con su licencia BSD. |
-| GTK/GDK, Lua, systemd | Dependencias del sistema; no se incluyen sus binarios en el código fuente del tema. |
-| Ubuntu Sans Mono / Font Awesome | Fuentes obtenidas de paquetes del sistema, no redistribuidas dentro de este repositorio. |
-| [Open-Meteo](https://open-meteo.com/) | Datos meteorológicos con atribución Open-Meteo, CC BY 4.0, visible en la tarjeta. Revisar sus condiciones para el uso previsto. |
+| [Conky](https://github.com/brndnmtthws/conky) | External renderer installed from the distribution; retains its license |
+| [psutil](https://github.com/giampaolo/psutil) | System/process telemetry, BSD-3-Clause |
+| [nvidia-ml-py](https://pypi.org/project/nvidia-ml-py/) | Optional separately distributed NVML bindings, BSD |
+| GTK/GDK, Lua, systemd | System dependencies; their binaries are not bundled |
+| Ubuntu Sans Mono, DejaVu Sans Mono, Liberation Mono, Font Awesome | System-package fonts, not redistributed here; retain upstream font licenses |
+| [Open-Meteo](https://open-meteo.com/) | Weather data attribution, CC BY 4.0, visible in the card; check provider terms for your usage |
+| Ubuntu / GNOME accent categories | Palette inspiration; original theme color definitions, no desktop assets copied |
 
-Las capturas son documentación de dos escritorios reales. Incluyen interfaces,
-iconos y fondos que pertenecen a sus respectivos autores; no son un paquete de
-fondos de pantalla ni una licencia adicional sobre esos recursos.
+Real desktop screenshots include interfaces, icons and wallpaper belonging to their authors. They are documentation, not a wallpaper bundle or an additional license for those assets. Synthetic previews use generated fixture data and plain test backgrounds.
