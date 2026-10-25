@@ -123,12 +123,15 @@ function conky_containers()
                 .. ": "
                 .. (
                     available
-                        and tostring(v.running) .. (H.ui.presentation_profile == "compact" and "" or H.t(" running"))
+                        and tostring(v.running) .. (H.ui.presentation_profile == "compact" and "" or H.t(
+                            " running"
+                        ))
                     or H.t("offline")
                 )
         end
     end
-    return table.concat(out, " / ") .. (projects > 0 and (" · " .. projects .. H.t(" groups")) or "")
+    return table.concat(out, " / ")
+        .. (projects > 0 and (" · " .. projects .. H.t(" groups")) or "")
 end
 local function clean(text)
     return tostring(text or ""):gsub("[$%c]", " ")
@@ -167,7 +170,9 @@ function conky_weather()
     end
     local w = data().weather or { status = "unconfigured" }
     if w.status == "unconfigured" then
-        return H.t("${color}${font Ubuntu Sans Mono:style=Bold:size=12}YOUR LOCATION${font}\n\n${color3}Set a city manually.\n\nCurrent weather and forecast\nfor the next seven days.\n\n${color2}${font FontAwesome:size=24}\u{f0c2}${font}\n\n${color3}${font Ubuntu Sans Mono:size=8}No IP geolocation.\nSource: Open-Meteo${font}")
+        return H.t(
+            "${color}${font Ubuntu Sans Mono:style=Bold:size=12}YOUR LOCATION${font}\n\n${color3}Set a city manually.\n\nCurrent weather and forecast\nfor the next seven days.\n\n${color2}${font FontAwesome:size=24}\u{f0c2}${font}\n\n${color3}${font Ubuntu Sans Mono:size=8}No IP geolocation.\nSource: Open-Meteo${font}"
+        )
     end
     local place = w.location or {}
     local weather_card = (H.ui.cards or {}).weather or { width = 272 }
@@ -179,8 +184,9 @@ function conky_weather()
             .. H.short(place.region, math.floor(width / (H.font(9) * 0.8))),
     }
     if not w.current or w.status == "expired" then
-        lines[#lines + 1] =
-            H.t("\n${color6}Weather unavailable\n${color3}Retrying in the background.\n\n${font Ubuntu Sans Mono:size=8}Source: Open-Meteo${font}")
+        lines[#lines + 1] = H.t(
+            "\n${color6}Weather unavailable\n${color3}Retrying in the background.\n\n${font Ubuntu Sans Mono:size=8}Source: Open-Meteo${font}"
+        )
         return table.concat(lines, "\n")
     end
     local c = w.current
@@ -200,9 +206,11 @@ function conky_weather()
         .. H.t(" C / Humidity ")
         .. number(c.relative_humidity_2m)
         .. "%"
-    lines[#lines + 1] =
-        H.t("${voffset 2}${color2}${font Ubuntu Sans Mono:style=Bold:size=8}7 DAYS   MIN / MAX${alignr}RAIN")
-    local weekdays = { H.t("SUN"), H.t("MON"), H.t("TUE"), H.t("WED"), H.t("THU"), H.t("FRI"), H.t("SAT") }
+    lines[#lines + 1] = H.t(
+        "${voffset 2}${color2}${font Ubuntu Sans Mono:style=Bold:size=8}7 DAYS   MIN / MAX${alignr}RAIN"
+    )
+    local weekdays =
+        { H.t("SUN"), H.t("MON"), H.t("TUE"), H.t("WED"), H.t("THU"), H.t("FRI"), H.t("SAT") }
     for _, day in ipairs(w.days or {}) do
         if day.date >= (w.local_date or "") then
             local year, month, date = day.date:match("(%d+)-(%d+)-(%d+)")

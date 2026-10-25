@@ -1,6 +1,8 @@
 -- Content-aware blocks: absent facts do not become labels or empty sections.
 return function(H)
     local data = H.data
+    local legacy_groups =
+        { Aplicaciones = "Applications", Lenguajes = "Languages", Herramientas = "Tools" }
     local function hardware_lines(value, width, size, color)
         local lines = {}
         for _, line in ipairs(H.wrap(value, width, size, 2)) do
@@ -89,7 +91,12 @@ return function(H)
         if #subtitle > 0 then
             lines[#lines + 1] = "${color3}" .. table.concat(subtitle, " / ")
         end
-        if H.detailed() and hardware.ram_speed and hardware.ram_speed ~= "" and hardware.ram_speed ~= "N/D" then
+        if
+            H.detailed()
+            and hardware.ram_speed
+            and hardware.ram_speed ~= ""
+            and hardware.ram_speed ~= "N/D"
+        then
             lines[#lines + 1] = H.t("${color3}Configured: ") .. H.clean(hardware.ram_speed)
         end
         return table.concat(lines, "\n") .. "${font}"
@@ -232,11 +239,9 @@ return function(H)
                 }
             else
                 block = {
-                    "${color3}"
-                        .. H.short(disk.model or disk.name, 20)
-                        .. " / "
-                        .. size
-                        .. H.t(" / unmounted"),
+                    "${color3}" .. H.short(disk.model or disk.name, 20) .. " / " .. size .. H.t(
+                        " / unmounted"
+                    ),
                 }
             end
             local cost = #block * H.font(8) * 1.6
@@ -289,7 +294,10 @@ return function(H)
             if H.private_mode() or not H.detailed() or H.ui.density == "comfortable" then
                 detail = {}
             end
-            local note = H.detailed() and entry.family == "python" and entry.role == "active" and extra_python > 0
+            local note = H.detailed()
+                and entry.family == "python"
+                and entry.role == "active"
+                and extra_python > 0
             local cost = H.font(11) * 1.6
                 + H.pixels(6)
                 + #detail * H.font(9) * 1.6
@@ -314,7 +322,7 @@ return function(H)
             if category ~= group then
                 group = category
                 out[#out + 1] = "${voffset 12}${font Ubuntu Sans Mono:style=Bold:size=10}${color2}"
-                    .. H.t(({ Aplicaciones = "Applications", Lenguajes = "Languages", Herramientas = "Tools" })[category] or H.clean(category)):upper()
+                    .. H.t(legacy_groups[category] or H.clean(category)):upper()
             end
             local columns = math.max(
                 12,
@@ -322,9 +330,9 @@ return function(H)
             )
             local version = H.short(entry.version, math.max(8, math.floor(columns * 0.65)))
             local label =
-                H.short(entry.label, math.max(6, columns - (utf8.len(version) or #version) - 2))
+                H.short(H.t(entry.label), math.max(6, columns - (utf8.len(version) or #version) - 2))
             out[#out + 1] = "${voffset 6}${font Ubuntu Sans Mono:style=Bold:size=11}${color}"
-                .. H.t(label)
+                .. label
                 .. "${alignr}${color1}"
                 .. version
             for _, line in ipairs(block.detail) do

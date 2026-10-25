@@ -106,7 +106,9 @@ def config(name, box, layout, snapshot, build=None):
             title = "CONTAINERS"
     title = catalog(layout.get("language", "en")).get(title, title)
     if name == "cpu":
-        text = text.replace("history / 2s", "historial / 2s" if layout.get("language") == "es" else "history / 2s")
+        text = text.replace(
+            "history / 2s", "historial / 2s" if layout.get("language") == "es" else "history / 2s"
+        )
     status = "${lua_parse status}" if name == "system" else "${color4}┐"
     header = (
         "${font FontAwesome:size=13}${color2}"
@@ -118,7 +120,11 @@ def config(name, box, layout, snapshot, build=None):
         + "\n${color4}${hr 1}${color}\n"
     )
     text = header + text
-    for source, target in (("55AEFF", colors["primary"]), ("6DE4EF", colors["secondary"]), ("183451", colors["graph"])):
+    for source, target in (
+        ("55AEFF", colors["primary"]),
+        ("6DE4EF", colors["secondary"]),
+        ("183451", colors["graph"]),
+    ):
         text = text.replace(source, target)
     text = text.replace("Ubuntu Sans Mono", family)
     text = scaled_text(
@@ -160,7 +166,9 @@ def generate(layout, snapshot, build=None):
         language=layout.get("language", "en"),
         detail_level=layout.get("detail_level", "full"),
         translations=catalog(layout.get("language", "en")),
-        weekdays=["L", "M", "X", "J", "V", "S", "D"] if layout.get("language") == "es" else ["M", "T", "W", "T", "F", "S", "S"],
+        weekdays=["L", "M", "X", "J", "V", "S", "D"]
+        if layout.get("language") == "es"
+        else ["M", "T", "W", "T", "F", "S", "S"],
         padding=max(1, round(14 * layout["scale"])),
         cards={k: dict(width=v["w"], height=v["h"]) for k, v in layout["cards"].items()},
     )

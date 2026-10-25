@@ -230,6 +230,5 @@
   "unknown": "desconocida",
   "{p0} · {p1} · {p2} · exit {p3} · {p4:.2f} s": "{p0} · {p1} · {p2} · salida {p3} · {p4:.2f} s",
   "{p0}: {p1} · observed {p2}": "{p0}: {p1} · observado {p2}",
-  "| Check | Status |": "| Comprobación | Estado ",
-  "| Check | Status ||": "| Comprobación | Estado |"
+  "| Check | Status |": "| Comprobación | Estado |"
 }

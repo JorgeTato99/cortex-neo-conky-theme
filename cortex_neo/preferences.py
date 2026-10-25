@@ -4,8 +4,8 @@ import json
 import math
 import re
 
-from .io import atomic, read_json
 from .fonts import FONTS
+from .io import atomic, read_json
 from .palettes import PALETTES
 from .paths import CONFIG
 

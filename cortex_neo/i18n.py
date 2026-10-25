@@ -21,7 +21,11 @@ def catalog(language="en"):
     path = Path(__file__).with_name("locales") / ("es.json" if language == "es" else "en.json")
     try:
         values = json.loads(path.read_text(encoding="utf-8"))
-        return {key: value for key, value in values.items() if isinstance(key, str) and isinstance(value, str)}
+        return {
+            key: value
+            for key, value in values.items()
+            if isinstance(key, str) and isinstance(value, str)
+        }
     except (OSError, ValueError, AttributeError):
         return {}
 

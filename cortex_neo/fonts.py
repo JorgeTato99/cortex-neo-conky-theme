@@ -4,7 +4,11 @@ from functools import lru_cache
 
 from .io import command
 
-FONTS = {"ubuntu": "Ubuntu Sans Mono", "dejavu": "DejaVu Sans Mono", "liberation": "Liberation Mono"}
+FONTS = {
+    "ubuntu": "Ubuntu Sans Mono",
+    "dejavu": "DejaVu Sans Mono",
+    "liberation": "Liberation Mono",
+}
 
 
 @lru_cache(maxsize=3)
