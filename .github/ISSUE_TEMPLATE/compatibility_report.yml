@@ -1,0 +1,48 @@
+name: Compatibility report
+description: Report a checked Linux desktop configuration or a compatibility failure.
+title: "[Compatibility]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Report observations, not assumed support. Review output and screenshots before sharing.
+        Use cortex-neo version and cortex-neo report. Do not attach raw snapshots, environment variables, keys or private records.
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Distribution/version, desktop/session, CPU/GPU driver, physical resolution and desktop scaling percentage. Theme scale is separate.
+    validations:
+      required: true
+  - type: textarea
+    id: identity
+    attributes:
+      label: Application identity and selected report
+      description: Paste reviewed output from cortex-neo version --format json and cortex-neo report --format json.
+    validations:
+      required: true
+  - type: dropdown
+    id: evidence
+    attributes:
+      label: What was actually checked?
+      options:
+        - Not validated yet
+        - Installation and dependencies
+        - Visible and aligned cards
+        - Metrics compared with another tool
+        - Recovery after a described change
+        - A failure that can be reproduced
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Procedure, result and limits
+      description: Commands/actions, expected and observed results, and what you did not check. Mention full/compact profile and density.
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Optional screenshot
+      description: Include resolution and desktop scaling; review hostname, city, processes and other windows before uploading.

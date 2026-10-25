@@ -1,0 +1,8 @@
+{
+  "_documentation": "MANUAL ONLY. Set a city and its public city-center coordinates. Never use GeoIP, GPS, GeoClue, Wi-Fi identifiers or automatic geolocation as a fallback.",
+  "mode": "manual_city",
+  "name": "",
+  "region": "",
+  "latitude": null,
+  "longitude": null
+}

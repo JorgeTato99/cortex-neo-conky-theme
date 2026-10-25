@@ -1,0 +1,2 @@
+${lua_parse system_meta @CONTENT_WIDTH@}
+${color1}${font Ubuntu Sans Mono:style=Bold:size=20}${time %H:%M}${font}${alignr}${color3}${time %d.%m.%Y}

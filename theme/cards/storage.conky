@@ -1,0 +1,5 @@
+${color3}${font Ubuntu Sans Mono:size=8}${lua disk_summary}${font}
+${color}${lua value disks.1.model}
+${color3}${font Ubuntu Sans Mono:size=8}${lua disk_usage}${font}
+${if_match ${lua has disks.1.load} == 1}${color1}${lua_graph disk_load 36,288 183451 55AEFF 100}${endif}
+${font Ubuntu Sans Mono:size=8}${lua_parse other_disks}${font}

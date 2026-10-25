@@ -1,0 +1,9 @@
+{
+  "_documentation": "Monitor is primary or a zero-based monitor index. Scale multiplier shrinks the automatic fit; allowed range 0.5 to 1.0. Layout is auto, landscape or portrait.",
+  "monitor": "primary",
+  "scale_multiplier": 1.0,
+  "layout": "auto",
+  "profile": "auto",
+  "density": "complete",
+  "history_hours": 24
+}

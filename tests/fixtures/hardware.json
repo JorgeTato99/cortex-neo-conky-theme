@@ -1,0 +1,12 @@
+{
+  "gpus": [
+    {"vendor": "0x1002", "model": "AMD fixture", "sensors": {"device/gpu_busy_percent": "42", "device/mem_info_vram_used": "1073741824", "device/mem_info_vram_total": "8589934592", "device/hwmon/hwmon0/temp1_input": "63000"}},
+    {"vendor": "0x8086", "model": "Intel fixture", "sensors": {"gt/gt0/rps_cur_freq_mhz": "450", "gt/gt0/rps_max_freq_mhz": "1300"}},
+    {"vendor": "0x10de", "model": "NVIDIA fixture without proprietary driver", "sensors": {}}
+  ],
+  "blockdevices": [
+    {"name": "nvme0n1", "type": "disk", "size": 1000000000000, "model": "Identical SSD", "rota": false, "tran": "nvme", "mountpoints": [null], "children": [{"name": "cryptroot", "type": "crypt", "mountpoints": ["/"]}]},
+    {"name": "nvme1n1", "type": "disk", "size": 1000000000000, "model": "Identical SSD", "rota": false, "tran": "nvme", "mountpoints": [null], "children": [{"name": "cryptdev", "type": "crypt", "mountpoints": ["/srv/dev"]}]},
+    {"name": "sda", "type": "disk", "size": 2000000000000, "model": "Unmounted HDD", "rota": true, "tran": "sata", "mountpoints": [null]}
+  ]
+}

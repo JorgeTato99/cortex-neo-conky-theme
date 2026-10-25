@@ -1,0 +1,17 @@
+[Unit]
+Description=CÓRTEX NEO desktop cards
+Requires=cortex-neo-metrics.service
+After=cortex-neo-metrics.service
+PartOf=graphical-session.target
+
+[Service]
+Type=exec
+WorkingDirectory=%h/.local/share/cortex-neo
+ExecStart="%h/.local/share/cortex-neo/venv/bin/python" -I -m cortex_neo.supervisor
+Restart=on-failure
+RestartPreventExitStatus=75 78
+RestartSec=5
+TimeoutStopSec=15
+
+[Install]
+WantedBy=graphical-session.target

@@ -1,0 +1,3 @@
+${lua_parse gpu_meta @CONTENT_WIDTH@}
+${lua_parse gpu_summary}
+@GPU_GRAPHS@

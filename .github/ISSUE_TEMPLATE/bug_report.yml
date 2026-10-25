@@ -1,0 +1,23 @@
+name: Reportar un fallo
+description: Problemas visuales, sensores o comportamiento inesperado.
+title: "[Bug]: "
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: Entorno
+      description: Distribución, escritorio, X11/Wayland, versión o commit, resolución y escala.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Cómo reproducirlo
+      description: Pasos, resultado esperado y resultado observado.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidencia
+      description: Capturas o fragmentos relevantes del journal. Retira claves, tokens y datos personales.

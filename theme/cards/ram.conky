@@ -1,0 +1,5 @@
+${lua_parse ram_meta @CONTENT_WIDTH@}
+${color1}${font Ubuntu Sans Mono:style=Bold:size=16}${lua ram_usage}${font}
+${color3}${lua memory_usage}
+${if_match ${lua has ram.load} == 1}${color1}${lua_graph ram_load 36,288 183451 55AEFF 100}${endif}
+${lua_parse memory_top}

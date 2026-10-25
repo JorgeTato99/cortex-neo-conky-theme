@@ -1,0 +1,14 @@
+[Unit]
+Description=CÓRTEX NEO shared telemetry
+PartOf=graphical-session.target cortex-neo.service
+
+[Service]
+Type=notify
+NotifyAccess=main
+WorkingDirectory=%h/.local/share/cortex-neo
+ExecStart="%h/.local/share/cortex-neo/venv/bin/python" -I -m cortex_neo.telemetry
+Restart=on-failure
+RestartPreventExitStatus=75 78
+RestartSec=3
+TimeoutStartSec=35
+TimeoutStopSec=5

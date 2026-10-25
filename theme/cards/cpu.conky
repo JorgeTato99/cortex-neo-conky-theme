@@ -1,0 +1,5 @@
+${lua_parse cpu_meta @CONTENT_WIDTH@}
+${color1}${font Ubuntu Sans Mono:style=Bold:size=16}${lua cpu_usage}${font}${alignr}${color3}${lua cpu_temp}
+${if_match ${lua has cpu.load} == 1}${color1}${lua_graph cpu_load 48,288 183451 55AEFF 100}${endif}
+${color3}${font Ubuntu Sans Mono:size=7}historial / 2s${alignr}0-100%${font}
+${lua_parse cpu_top}
