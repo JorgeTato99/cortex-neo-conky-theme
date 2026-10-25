@@ -10,7 +10,7 @@ iconos, fondos de pantalla ni marcas que aparezcan en las capturas.
 | [psutil](https://github.com/giampaolo/psutil) | Telemetría de procesos y sistema; dependencia con licencia BSD de tres cláusulas. |
 | [nvidia-ml-py](https://pypi.org/project/nvidia-ml-py/) | Bindings opcionales de NVML; se distribuyen separadamente con su licencia BSD. |
 | GTK/GDK, Lua, systemd | Dependencias del sistema; no se incluyen sus binarios en el código fuente del tema. |
-| Ubuntu Sans Mono / Font Awesome | Fuentes obtenidas de paquetes del sistema, no redistribuidas dentro de este repositorio. |
+| Ubuntu Sans Mono / DejaVu Sans Mono / Liberation Mono / Font Awesome | Fuentes obtenidas de paquetes del sistema, no redistribuidas dentro de este repositorio. |
 | [Open-Meteo](https://open-meteo.com/) | Datos meteorológicos con atribución Open-Meteo, CC BY 4.0, visible en la tarjeta. Revisar sus condiciones para el uso previsto. |
 
 Las capturas son documentación de dos escritorios reales. Incluyen interfaces,
