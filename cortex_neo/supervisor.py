@@ -176,6 +176,9 @@ def main():
                                 "hidden_cards",
                                 "anchor",
                                 "theme",
+                                "font",
+                                "language",
+                                "detail_level",
                             )
                         }
                     ),
@@ -194,6 +197,8 @@ def main():
                     density=settings["density"],
                 )
                 layout["theme"] = settings["theme"]
+                for key in ("font", "language", "detail_level"):
+                    layout[key] = settings[key]
                 stop_children(children)
                 children = []
                 children, generation = launch(layout, snapshot, conky, monitor_scale, build)

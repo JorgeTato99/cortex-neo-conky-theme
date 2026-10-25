@@ -49,6 +49,7 @@ return function(H)
         }
         if
             H.private_mode()
+            or not H.detailed()
             or H.ui.density == "comfortable"
             or H.ui.presentation_profile == "compact"
         then
@@ -68,7 +69,7 @@ return function(H)
         width = tonumber(width) or 292
         local hardware = data().hardware or {}
         local lines = hardware_lines(hardware.cpu_model, width, 9, "color")
-        if hardware.cpu_topology and hardware.cpu_topology ~= "" then
+        if H.detailed() and hardware.cpu_topology and hardware.cpu_topology ~= "" then
             lines[#lines + 1] = "${font}${color3}" .. H.clean(hardware.cpu_topology)
         end
         return table.concat(lines, "\n") .. "${font}"
@@ -79,7 +80,7 @@ return function(H)
         local hardware = data().hardware or {}
         local lines = hardware_lines(hardware.ram_model, width, 10, "color")
         local subtitle = {}
-        for _, key in ipairs({ "ram_type", "ram_capacity" }) do
+        for _, key in ipairs(H.detailed() and { "ram_type", "ram_capacity" } or {}) do
             local value = hardware[key]
             if value and value ~= "" and value ~= "N/D" then
                 subtitle[#subtitle + 1] = H.clean(value)
@@ -88,7 +89,7 @@ return function(H)
         if #subtitle > 0 then
             lines[#lines + 1] = "${color3}" .. table.concat(subtitle, " / ")
         end
-        if hardware.ram_speed and hardware.ram_speed ~= "" and hardware.ram_speed ~= "N/D" then
+        if H.detailed() and hardware.ram_speed and hardware.ram_speed ~= "" and hardware.ram_speed ~= "N/D" then
             lines[#lines + 1] = "${color3}Configurada: " .. H.clean(hardware.ram_speed)
         end
         return table.concat(lines, "\n") .. "${font}"
@@ -120,10 +121,10 @@ return function(H)
     function conky_gpu_meta(width)
         local gpu = data().gpu or {}
         local lines = hardware_lines(gpu.model, tonumber(width) or 292, 10, "color")
-        if gpu.maker and gpu.maker ~= "" then
+        if H.detailed() and gpu.maker and gpu.maker ~= "" then
             lines[#lines + 1] = "${font Ubuntu Sans Mono:size=7}${color3}" .. H.clean(gpu.maker)
         end
-        if gpu.driver and gpu.driver ~= "" then
+        if H.detailed() and gpu.driver and gpu.driver ~= "" then
             lines[#lines + 1] = "${font Ubuntu Sans Mono:size=7}${color3}Driver "
                 .. H.clean(gpu.driver)
         end
@@ -285,10 +286,10 @@ return function(H)
         local height, group = 0, ""
         for _, entry in ipairs(entries) do
             local detail = H.wrap(entry.detail or "", width, 9)
-            if H.private_mode() or H.ui.density == "comfortable" then
+            if H.private_mode() or not H.detailed() or H.ui.density == "comfortable" then
                 detail = {}
             end
-            local note = entry.family == "python" and entry.role == "active" and extra_python > 0
+            local note = H.detailed() and entry.family == "python" and entry.role == "active" and extra_python > 0
             local cost = H.font(11) * 1.6
                 + H.pixels(6)
                 + #detail * H.font(9) * 1.6

@@ -81,6 +81,9 @@ function M.pixels(base)
 end
 
 function M.style(text)
+    text = text:gsub("Ubuntu Sans Mono", function()
+        return M.ui.font_family or "DejaVu Sans Mono"
+    end)
     text = text:gsub("(%${font[^}]-size=)(%d+)", function(prefix, size)
         return prefix .. M.font(tonumber(size))
     end)
@@ -90,6 +93,10 @@ function M.style(text)
         end)
     end
     return text
+end
+
+function M.detailed()
+    return M.ui.detail_level ~= "essential"
 end
 
 function M.short(text, length)

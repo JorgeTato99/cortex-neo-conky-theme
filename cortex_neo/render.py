@@ -7,6 +7,7 @@ import tempfile
 from pathlib import Path
 
 from .conky import window_settings
+from .fonts import resolve_font
 from .io import atomic, lua
 from .paths import CACHE, GENERATED, ROOT
 from .preferences import theme_settings
@@ -47,6 +48,7 @@ def config(name, box, layout, snapshot, build=None):
     scale = layout["scale"]
     theme = theme_settings(layout.get("theme"))
     colors = theme["colors"]
+    family = resolve_font(layout.get("font", "ubuntu"))
     padding = max(1, round(14 * scale))
     content_width = max(1, round(box["w"]) - 2 * padding)
     graph_width = max(1, content_width - round(4 * scale))
@@ -112,8 +114,9 @@ def config(name, box, layout, snapshot, build=None):
         + "\n${color4}${hr 1}${color}\n"
     )
     text = header + text
-    for source, target in (("55AEFF", colors["primary"]), ("6DE4EF", colors["secondary"])):
+    for source, target in (("55AEFF", colors["primary"]), ("6DE4EF", colors["secondary"]), ("183451", colors["graph"])):
         text = text.replace(source, target)
+    text = text.replace("Ubuntu Sans Mono", family)
     text = scaled_text(
         text, scale, layout.get("font_adjustment", 1), layout.get("min_font_size", 7)
     )
@@ -128,7 +131,7 @@ own_window_hints='undecorated,below,sticky,skip_taskbar,skip_pager',
 alignment='top_left',gap_x={round(layout["x"] + box["x"]) + padding},gap_y={round(layout["y"] + box["y"]) + padding},
 minimum_width={content_width},maximum_width={content_width},minimum_height={max(1, round(box["h"]) - 2 * padding)},
 border_inner_margin={padding},border_outer_margin=0,border_width=0,
-use_xft=true,font='Ubuntu Sans Mono:size={max(layout.get("min_font_size", 7), round(10 * scale * layout.get("font_adjustment", 1)))}',xftalpha=1,override_utf8_locale=true,
+use_xft=true,font='{family}:size={max(layout.get("min_font_size", 7), round(10 * scale * layout.get("font_adjustment", 1)))}',xftalpha=1,override_utf8_locale=true,
 draw_shades=false,draw_outline=false,draw_borders=false,draw_graph_borders=true,
 default_color='{colors["text"]}',color1='{colors["primary"]}',color2='{colors["secondary"]}',color3='{colors["muted"]}',
 color4='{colors["border"]}',color5='{colors["accent"]}',color6='{colors["warning"]}',text_buffer_size=32768,max_user_text=65536,
@@ -149,6 +152,9 @@ def generate(layout, snapshot, build=None):
         density=layout.get("density", "complete"),
         presentation_profile=layout.get("presentation_profile", "full"),
         top_count=layout.get("top_count", 5),
+        font_family=resolve_font(layout.get("font", "ubuntu")),
+        language=layout.get("language", "en"),
+        detail_level=layout.get("detail_level", "full"),
         padding=max(1, round(14 * layout["scale"])),
         cards={k: dict(width=v["w"], height=v["h"]) for k, v in layout["cards"].items()},
     )
