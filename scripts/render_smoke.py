@@ -4,6 +4,7 @@ import argparse
 import calendar
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -28,10 +29,20 @@ def main():
         parser.error(
             "Use CORTEX_NEO_HEADLESS_TEST=1 xvfb-run -a python scripts/render_smoke.py ..."
         )
+    # PyGObject can initialize a default display while importing Gdk overrides.
+    # Force the test backend before that import, not only before Gdk.init().
+    os.environ["GDK_BACKEND"] = "x11"
+    os.environ.pop("WAYLAND_DISPLAY", None)
+    os.environ["GDK_SCALE"] = "1"
+    os.environ["GDK_DPI_SCALE"] = "1"
     import gi
 
     gi.require_version("Gdk", "3.0")
     from gi.repository import Gdk
+
+    # A real host may expose WAYLAND_DISPLAY over SSH. Select Xvfb before the
+    # first GDK initialization, or its default root can refer to another display.
+    Gdk.set_allowed_backends("x11")
 
     from cortex_neo.conky import capabilities
     from cortex_neo.display import monitor_area
@@ -53,6 +64,8 @@ def main():
             for command in (["openbox", "--sm-disable"], ["xcompmgr"]):
                 processes.append(subprocess.Popen(command, stdout=logs, stderr=logs))
             time.sleep(1)
+            if shutil.which("xsetroot"):
+                subprocess.run(["xsetroot", "-solid", "#050B14"], check=True)
             before = bytes(Gdk.pixbuf_get_from_window(root, 0, 0, 1920, 1080).get_pixels())
             snapshot = {
                 "sampled_at": time.time(),
@@ -128,9 +141,7 @@ def main():
             }
             atomic(directory / "dashboard.lua", "return " + lua(snapshot))
             banner = subprocess.check_output(["conky", "--version"], text=True)
-            plan = calculate(
-                (0, 0, 1536, 864), snapshot, profile=options.profile, density=options.density
-            )
+            plan = calculate(area, snapshot, profile=options.profile, density=options.density)
             from cortex_neo.palettes import PALETTES
 
             if options.palette not in PALETTES:
@@ -162,6 +173,24 @@ def main():
             image = Gdk.pixbuf_get_from_window(root, 0, 0, 1920, 1080)
             after = bytes(image.get_pixels())
             changed = sum(a != b for a, b in zip(before, after, strict=True))
+            if changed <= 10000:
+                options.output.parent.mkdir(parents=True, exist_ok=True)
+                image.savev(str(options.output.with_suffix(".failed.png")), "png", [], [])
+                logs.flush()
+                logs.seek(0)
+                tree = subprocess.run(
+                    ["xwininfo", "-root", "-tree"], capture_output=True, text=True, check=False
+                )
+                options.output.with_suffix(".failed.log").write_text(
+                    logs.read()
+                    + "\n"
+                    + tree.stdout
+                    + "\nGDK="
+                    + display.get_name()
+                    + " DISPLAY="
+                    + os.environ.get("DISPLAY", ""),
+                    encoding="utf-8",
+                )
             assert changed > 10000, f"Desktop remained blank: {changed} changed bytes"
             # Each mapped card must contribute visible content, not just an empty window.
             for name, box in plan["cards"].items():
