@@ -1,16 +1,27 @@
-# Screenshot provenance
+# Real desktop screenshots
 
-Historical real-desktop screenshots were captured on **2026-10-24 at 20:07 UTC−06:00** with clear, authorized desktops and predecessor version 1.1.0. They show the earlier CÓRTEX title and are retained as historical evidence, not mislabeled as the new release.
+The main screenshots were refreshed on **October 25, 2026**, with both desktops clear and **CORTEX NEO 0.1.0**, revision `cee0e54`. The normal GNOME portal captured the complete desktops. These replace the historical examples and earlier fixture renders.
 
-| File | Machine | Physical resolution | GNOME scale | GDK work area | Internal theme scale |
+| Machine | Resolution | GNOME scaling | GDK work area | Theme scale | Capture time |
 |---|---|---|---|---|---|
-| [Ryzen](../../assets/screenshots/ryzen-5700x-rtx4060ti.webp) | Ryzen 7 5700X, 64 GB DDR4, RTX 4060 Ti | 2560 × 1440 | 166.67% | (67,32,1469,832) | 1.0 |
-| [Dell](../../assets/screenshots/dell-latitude-5420.webp) | Latitude 5420, i5-1135G7, 16 GB DDR4, Iris Xe | 1920 × 1080 | 125% | (67,32,1469,832) | 1.0 |
+| [Ryzen 7 5700X · RTX 4060 Ti](../../assets/screenshots/ryzen-5700x-rtx4060ti.webp) | 2560 × 1440 | 166.67 % | `[67, 32, 1469, 832]` | 1.0 | 2026-10-25 17:33:01 UTC−06:00 |
+| [Dell Latitude 5420 · Intel Iris Xe](../../assets/screenshots/dell-latitude-5420.webp) | 1920 × 1080 | 125 % | `[67, 32, 1469, 832]` | 1.0 | 2026-10-25 17:33:00 UTC−06:00 |
 
-Mutter reported scales 1.6666666269302368 and 1.25, respectively. Both yield approximately 1536 × 864 logical desktops; GDK excludes dock/top bar. Physical resolution, desktop scaling and internal theme scale are different values.
+Both installations run Ubuntu 26.04.1 LTS with GNOME Wayland and Conky through XWayland. Resolution records the active physical mode and published file pixels; the percentage is GNOME desktop scaling queried from Mutter. GDK work areas use logical pixels and exclude the dock/top bar. Internal theme scale is independent. Both captured interfaces use English; changing README language changes neither the images nor content order.
 
-PNG captures were converted to lossless WebP without resizing or reducing the palette. All decoded pixels and dimensions were verified equal. Original/compressed sizes were approximately 4.23/2.79 MB (Ryzen) and 1.99/1.32 MB (Dell). Only compressed images are versioned.
+## Lossless compression
 
-New release palette/font/detail previews are actual Conky/Xvfb renders using explicitly synthetic data. They are labeled separately from personal desktop captures. A render's stated Xvfb resolution/100% scaling is not a claim about physical hardware. Lossless WebP conversion preserves the source resolution and decoded pixels.
+Original PNGs were encoded as WebP with `lossless=True`, `quality=100`, `method=6` and `exact=True`. **Every image** was checked for identical dimensions and decoded RGBA bytes. No resizing, cropping or recoloring was applied. Only WebP files enter Git; original PNGs remain in ignored `temp/`.
 
-Screenshots can reveal hostnames, process names and manually configured city. Review before publication; presentation mode affects only this dashboard. Third-party wallpaper/icon rights remain with their authors; see [notices](../../THIRD_PARTY_NOTICES.md).
+| Machine | Original PNG | Published WebP | Reduction |
+|---|---|---|---|
+| Ryzen | 4.23 MB | 2.80 MB | 33.79 % |
+| Dell | 1.99 MB | 1.32 MB | 33.60 % |
+
+MB uses decimal units. Manifests retain dimensions, scaling, timestamps, version, sizes and pixel-comparison outcomes without copying private snapshots.
+
+## Palette gallery
+
+The other nine palettes were captured on the same Ryzen without changing resolution, scaling, font, language or detail level. Blue reuses the main example instead of duplicating its image. The [gallery](../reference/appearance.md) shows all ten native captures in the same order in both languages.
+
+Captures can show hostnames, process names and the manually configured city. Desktops were reviewed before publication. Third-party icons and wallpaper retain their rights; see [notices](../../THIRD_PARTY_NOTICES.md).

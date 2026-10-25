@@ -1,0 +1,284 @@
+{
+  "palettes": [
+    {
+      "file": "assets/screenshots/ryzen-5700x-rtx4060ti.webp",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "desktop_scale": 1.6666666269302368,
+      "captured_at": "2026-10-25T23:33:01.157979+00:00",
+      "version": "0.1.0",
+      "revision": "cee0e54b7abdca071148a43ac1c9aca05061ea8d",
+      "capture_type": "native GNOME screenshot portal",
+      "original_bytes": 4233955,
+      "webp_bytes": 2803232,
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "work_area": [
+        67,
+        32,
+        1469,
+        832
+      ],
+      "theme_scale": 1.0,
+      "palette": "blue",
+      "language": "en",
+      "font": "ubuntu",
+      "detail_level": "full",
+      "webp_sha256": "3e750e60cd62e33f58fdb9ba445bbffbcf8c4f256fdc6afbafdd976c6b606c0e"
+    },
+    {
+      "palette": "teal",
+      "captured_at": "2026-10-25T23:36:05.782927+00:00",
+      "work_area": [
+        67,
+        32,
+        1469,
+        832
+      ],
+      "theme_scale": 1.0,
+      "font": "ubuntu",
+      "language": "en",
+      "detail_level": "full",
+      "file": "assets/palettes/teal.webp",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "desktop_scale": 1.6666666269302368,
+      "version": "0.1.0",
+      "revision": "cee0e54b7abdca071148a43ac1c9aca05061ea8d",
+      "capture_type": "native GNOME screenshot portal",
+      "original_bytes": 4225595,
+      "webp_bytes": 2792242,
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "webp_sha256": "da350f0752e946160c940d134596526782a1afe5b12236027876a2c8df5e6111"
+    },
+    {
+      "palette": "green",
+      "captured_at": "2026-10-25T23:36:14.977449+00:00",
+      "work_area": [
+        67,
+        32,
+        1469,
+        832
+      ],
+      "theme_scale": 1.0,
+      "font": "ubuntu",
+      "language": "en",
+      "detail_level": "full",
+      "file": "assets/palettes/green.webp",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "desktop_scale": 1.6666666269302368,
+      "version": "0.1.0",
+      "revision": "cee0e54b7abdca071148a43ac1c9aca05061ea8d",
+      "capture_type": "native GNOME screenshot portal",
+      "original_bytes": 4222578,
+      "webp_bytes": 2801124,
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "webp_sha256": "371f2a9a67435c633c29608380437eb4de08bb6debe7137a30fa78f5eabea6e9"
+    },
+    {
+      "palette": "yellow",
+      "captured_at": "2026-10-25T23:36:24.230117+00:00",
+      "work_area": [
+        67,
+        32,
+        1469,
+        832
+      ],
+      "theme_scale": 1.0,
+      "font": "ubuntu",
+      "language": "en",
+      "detail_level": "full",
+      "file": "assets/palettes/yellow.webp",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "desktop_scale": 1.6666666269302368,
+      "version": "0.1.0",
+      "revision": "cee0e54b7abdca071148a43ac1c9aca05061ea8d",
+      "capture_type": "native GNOME screenshot portal",
+      "original_bytes": 4223830,
+      "webp_bytes": 2802912,
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "webp_sha256": "7c83296ecb45b4c68e88a5dfd843d3a17cc320f6dd5b19996ccdb58ee66de2ec"
+    },
+    {
+      "palette": "orange",
+      "captured_at": "2026-10-25T23:36:35.377794+00:00",
+      "work_area": [
+        67,
+        32,
+        1469,
+        832
+      ],
+      "theme_scale": 1.0,
+      "font": "ubuntu",
+      "language": "en",
+      "detail_level": "full",
+      "file": "assets/palettes/orange.webp",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "desktop_scale": 1.6666666269302368,
+      "version": "0.1.0",
+      "revision": "cee0e54b7abdca071148a43ac1c9aca05061ea8d",
+      "capture_type": "native GNOME screenshot portal",
+      "original_bytes": 4226052,
+      "webp_bytes": 2787562,
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "webp_sha256": "a17bc94992391b222e5ac65ad8edb1c35a46bba24359da95666a8983be9dfb07"
+    },
+    {
+      "palette": "red",
+      "captured_at": "2026-10-25T23:36:44.503799+00:00",
+      "work_area": [
+        67,
+        32,
+        1469,
+        832
+      ],
+      "theme_scale": 1.0,
+      "font": "ubuntu",
+      "language": "en",
+      "detail_level": "full",
+      "file": "assets/palettes/red.webp",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "desktop_scale": 1.6666666269302368,
+      "version": "0.1.0",
+      "revision": "cee0e54b7abdca071148a43ac1c9aca05061ea8d",
+      "capture_type": "native GNOME screenshot portal",
+      "original_bytes": 4226365,
+      "webp_bytes": 2784176,
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "webp_sha256": "6532cc9a095b8eebae67a03132a6459777d8a28792b908dfdc84680f3fab5818"
+    },
+    {
+      "palette": "pink",
+      "captured_at": "2026-10-25T23:36:55.826203+00:00",
+      "work_area": [
+        67,
+        32,
+        1469,
+        832
+      ],
+      "theme_scale": 1.0,
+      "font": "ubuntu",
+      "language": "en",
+      "detail_level": "full",
+      "file": "assets/palettes/pink.webp",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "desktop_scale": 1.6666666269302368,
+      "version": "0.1.0",
+      "revision": "cee0e54b7abdca071148a43ac1c9aca05061ea8d",
+      "capture_type": "native GNOME screenshot portal",
+      "original_bytes": 4230348,
+      "webp_bytes": 2784874,
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "webp_sha256": "584e072b685f3a13758e398cec81a6165c69731c49e957c5a18fd31a1f6b2be9"
+    },
+    {
+      "palette": "purple",
+      "captured_at": "2026-10-25T23:37:05.201173+00:00",
+      "work_area": [
+        67,
+        32,
+        1469,
+        832
+      ],
+      "theme_scale": 1.0,
+      "font": "ubuntu",
+      "language": "en",
+      "detail_level": "full",
+      "file": "assets/palettes/purple.webp",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "desktop_scale": 1.6666666269302368,
+      "version": "0.1.0",
+      "revision": "cee0e54b7abdca071148a43ac1c9aca05061ea8d",
+      "capture_type": "native GNOME screenshot portal",
+      "original_bytes": 4231570,
+      "webp_bytes": 2785774,
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "webp_sha256": "9b2a2e2efe1268624bf09835c32798fa8ba18883f1011a18713974eafffed58b"
+    },
+    {
+      "palette": "slate",
+      "captured_at": "2026-10-25T23:37:14.339460+00:00",
+      "work_area": [
+        67,
+        32,
+        1469,
+        832
+      ],
+      "theme_scale": 1.0,
+      "font": "ubuntu",
+      "language": "en",
+      "detail_level": "full",
+      "file": "assets/palettes/slate.webp",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "desktop_scale": 1.6666666269302368,
+      "version": "0.1.0",
+      "revision": "cee0e54b7abdca071148a43ac1c9aca05061ea8d",
+      "capture_type": "native GNOME screenshot portal",
+      "original_bytes": 4227267,
+      "webp_bytes": 2790314,
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "webp_sha256": "0a39621c6f65db2c4b75eebcc310fa42b85dd1e64ede21e14ca73f08a28d3e66"
+    },
+    {
+      "palette": "brown",
+      "captured_at": "2026-10-25T23:37:25.464510+00:00",
+      "work_area": [
+        67,
+        32,
+        1469,
+        832
+      ],
+      "theme_scale": 1.0,
+      "font": "ubuntu",
+      "language": "en",
+      "detail_level": "full",
+      "file": "assets/palettes/brown.webp",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "desktop_scale": 1.6666666269302368,
+      "version": "0.1.0",
+      "revision": "cee0e54b7abdca071148a43ac1c9aca05061ea8d",
+      "capture_type": "native GNOME screenshot portal",
+      "original_bytes": 4225132,
+      "webp_bytes": 2789076,
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "webp_sha256": "4d6c60a65878114e44a29af03de2f59daed6ca92849b71870a385376d998e2c7"
+    }
+  ]
+}

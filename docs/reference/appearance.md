@@ -1,33 +1,73 @@
 # Palettes, fonts and detail
 
-Ten complete palettes follow the accent categories observed on Ubuntu 26. Each defines nine semantic roles, with brighter foregrounds adapted to this dark theme. Selecting one does not change desktop accents or fonts.
+All ten variants use **real screenshots of the same Ryzen desktop**, taken through the normal GNOME portal. Only the palette changed: font `ubuntu`, language `en` and detail `full` stayed the same. Original preference files were restored afterward.
 
-These are actual Conky/Xvfb renders with explicit synthetic fixture data: **1920 × 1080, 100% scaling, 96 DPI**. Content, bounds, alignment and absence of overlap were checked. Every lossless WebP preserves the original PNG dimensions and decoded pixels.
+**2560 × 1440 · GNOME scaling 166.67% · internal theme scale 1.0.** Captured on October 25, 2026, version 0.1.0. Values and clock reflect each moment; graphs restart their short window when cards regenerate. No synthetic readings or image recoloring were used.
 
-| Palette / Paleta | Font / Fuente | Language / Idioma | Detail / Detalle | Preview |
-|---|---|---|---|---|
-| `blue` | `ubuntu` | `en` | `full` | [blue](../../assets/previews/blue.webp) |
-| `teal` | `dejavu` | `es` | `essential` | [teal](../../assets/previews/teal.webp) |
-| `green` | `liberation` | `en` | `full` | [green](../../assets/previews/green.webp) |
-| `yellow` | `ubuntu` | `es` | `essential` | [yellow](../../assets/previews/yellow.webp) |
-| `orange` | `dejavu` | `en` | `full` | [orange](../../assets/previews/orange.webp) |
-| `red` | `liberation` | `es` | `essential` | [red](../../assets/previews/red.webp) |
-| `pink` | `ubuntu` | `en` | `full` | [pink](../../assets/previews/pink.webp) |
-| `purple` | `dejavu` | `es` | `essential` | [purple](../../assets/previews/purple.webp) |
-| `slate` | `liberation` | `en` | `full` | [slate](../../assets/previews/slate.webp) |
-| `brown` | `ubuntu` | `es` | `essential` | [brown](../../assets/previews/brown.webp) |
+| Palette | Primary color | Original image |
+|---|---|---|
+| `blue` | `#55AEFF` | [Open](../../assets/screenshots/ryzen-5700x-rtx4060ti.webp) |
+| `teal` | `#56D6CE` | [Open](../../assets/palettes/teal.webp) |
+| `green` | `#96D56C` | [Open](../../assets/palettes/green.webp) |
+| `yellow` | `#F3CC61` | [Open](../../assets/palettes/yellow.webp) |
+| `orange` | `#FFAB75` | [Open](../../assets/palettes/orange.webp) |
+| `red` | `#FF8097` | [Open](../../assets/palettes/red.webp) |
+| `pink` | `#E896E8` | [Open](../../assets/palettes/pink.webp) |
+| `purple` | `#B3A1FF` | [Open](../../assets/palettes/purple.webp) |
+| `slate` | `#A7C8B2` | [Open](../../assets/palettes/slate.webp) |
+| `brown` | `#DDBA8D` | [Open](../../assets/palettes/brown.webp) |
+
+## Blue · `blue`
+
+![CORTEX NEO · Blue](../../assets/screenshots/ryzen-5700x-rtx4060ti.webp)
+
+## Teal · `teal`
+
+![CORTEX NEO · Teal](../../assets/palettes/teal.webp)
+
+## Green · `green`
+
+![CORTEX NEO · Green](../../assets/palettes/green.webp)
+
+## Yellow · `yellow`
+
+![CORTEX NEO · Yellow](../../assets/palettes/yellow.webp)
+
+## Orange · `orange`
+
+![CORTEX NEO · Orange](../../assets/palettes/orange.webp)
+
+## Red · `red`
+
+![CORTEX NEO · Red](../../assets/palettes/red.webp)
+
+## Pink · `pink`
+
+![CORTEX NEO · Pink](../../assets/palettes/pink.webp)
+
+## Purple · `purple`
+
+![CORTEX NEO · Purple](../../assets/palettes/purple.webp)
+
+## Slate · `slate`
+
+![CORTEX NEO · Slate](../../assets/palettes/slate.webp)
+
+## Brown · `brown`
+
+![CORTEX NEO · Brown](../../assets/palettes/brown.webp)
+
+## Configuration
 
 ```bash
-cortex-neo configure --palette purple --font dejavu --language es --detail-level essential
-cortex-neo configure --palette blue --font ubuntu --language en --detail-level full
+cortex-neo configure --palette purple --font ubuntu --detail-level full
+cortex-neo configure --palette blue
 ```
 
-The nine roles are text, primary, secondary, muted, border, accent, warning, graph and background. `theme.json` accepts six-digit hexadecimal overrides and opacity from 0 to 1. Legacy neon/contrast/amber aliases remain readable for migration.
+Every palette defines nine roles: text, primary, secondary, muted, border, accent, warning, graph and background. `theme.json` accepts six-digit hexadecimal overrides and opacity from 0 to 1. Legacy neon/contrast/amber aliases remain for migration.
 
-Font profiles select Ubuntu Sans Mono, DejaVu Sans Mono or Liberation Mono. Fontconfig checks availability; missing families fall back to DejaVu, then monospace. Icons keep FontAwesome.
+Font profiles select Ubuntu Sans Mono, DejaVu Sans Mono or Liberation Mono; fontconfig checks availability and substitutes missing families. Icons retain FontAwesome.
 
-Essential detail keeps model/name, version, measurements, graphs and tops while hiding secondary topology/specifications and builds. Attribution and accounting notices remain. Density and layout profile are independent choices.
+The `essential` detail level hides secondary specifications/builds while keeping models, versions, measurements, graphs, tops and accounting/attribution notices. Profile and density remain independent choices.
 
-[Ubuntu accent source](https://github.com/ubuntu/yaru/blob/master/common/accent-colors.scss.in) · [GNOME upstream accent categories](https://gnome.pages.gitlab.gnome.org/libadwaita/doc/main/enum.AccentColor.html)
-
-Ubuntu adds brown to the nine upstream GNOME API accents. Local `gsettings range org.gnome.desktop.interface accent-color` and the supplied Settings image confirm ten choices; older Yaru variant names are not substituted for current IDs.
+[Provenance and compression](../validation/screenshots.md) · [Configuration](../getting-started/configuration.md)

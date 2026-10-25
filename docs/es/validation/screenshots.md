@@ -1,51 +1,27 @@
 # Capturas de instalaciones reales
 
-Imágenes renovadas el **24 de octubre de 2026 a las 20:07 (UTC−06:00)**, con
-los escritorios despejados y la versión 1.1.0 del dashboard instalada.
-Son capturas completas obtenidas mediante el portal normal de GNOME; no se
-generaron como mockups ni se incorporaron datos ficticios al tema.
+Las capturas principales se renovaron el **25 de octubre de 2026**, con ambos escritorios despejados y **CORTEX NEO 0.1.0**, revisión `cee0e54`. Se obtuvieron mediante el portal normal de GNOME, conservando íntegro el escritorio. Sustituyen los ejemplos históricos y los renders con fixtures anteriores.
 
-| Archivo | Equipo | Resolución de captura | Escalado de GNOME | Área útil GDK | Escala del tema |
-|---|---|---|---:|---|---:|
-| [Ryzen](../../../assets/screenshots/ryzen-5700x-rtx4060ti.webp) | Ryzen 7 5700X, 64 GB DDR4, NVIDIA RTX 4060 Ti 8 GB | 2560 × 1440 | 166,67 % | `(67, 32, 1469, 832)` | 1.0 |
-| [Dell](../../../assets/screenshots/dell-latitude-5420.webp) | Latitude 5420, Core i5-1135G7, 16 GB DDR4, Intel Iris Xe | 1920 × 1080 | 125 % | `(67, 32, 1469, 832)` | 1.0 |
+| Equipo | Resolución | Escalado GNOME | Área útil GDK | Escala del tema | Hora de captura |
+|---|---|---|---|---|---|
+| [Ryzen 7 5700X · RTX 4060 Ti](../../../assets/screenshots/ryzen-5700x-rtx4060ti.webp) | 2560 × 1440 | 166,67 % | `[67, 32, 1469, 832]` | 1.0 | 2026-10-25 17:33:01 UTC−06:00 |
+| [Dell Latitude 5420 · Intel Iris Xe](../../../assets/screenshots/dell-latitude-5420.webp) | 1920 × 1080 | 125 % | `[67, 32, 1469, 832]` | 1.0 | 2026-10-25 17:33:00 UTC−06:00 |
 
-Los dos equipos ejecutan Ubuntu 26.04.1 LTS con GNOME Wayland y Conky sobre
-XWayland. La resolución indica los píxeles físicos del modo activo y del archivo
-publicado; el escalado de GNOME indica el tamaño elegido para la interfaz. Ambos
-valores se consultaron en Mutter antes de capturar, sin cambiar la pantalla.
-
-En la Ryzen, el factor que devuelve Mutter es `1.6666666269302368`, redondeado
-a 166,67 % en la tabla; en la Dell es `1.25`. Ambos producen un escritorio lógico
-de aproximadamente 1536 × 864. GDK informa el área útil como `(x, y, ancho, alto)`
-en píxeles lógicos, descontando el dock y la barra superior. La escala del tema
-es un multiplicador interno independiente del escalado del escritorio. Por eso
-estas capturas tienen distinta resolución física y la misma disposición lógica.
+Las dos instalaciones ejecutan Ubuntu 26.04.1 LTS con GNOME Wayland y Conky sobre XWayland. La resolución corresponde a los píxeles del modo activo y del archivo publicado; el porcentaje es el escalado elegido en GNOME, consultado en Mutter. El área útil GDK usa píxeles lógicos y excluye dock/barra superior. La escala interna del tema es independiente. La interfaz capturada está en inglés en ambos casos; cambiar el idioma del README no cambia las imágenes ni el orden del contenido.
 
 ## Compresión sin pérdida
 
-Las capturas PNG originales se convirtieron a **WebP sin pérdida**, manteniendo
-resolución, colores y nitidez del texto. Se verificó la igualdad de todos los
-píxeles decodificados, además de las dimensiones; no se redimensionaron ni se
-redujo la paleta de colores.
+Los PNG originales se convirtieron a WebP con `lossless=True`, `quality=100`, `method=6` y `exact=True`. Para **cada imagen** se compararon las dimensiones y todos los bytes RGBA decodificados. No se redimensionó, recortó ni recoloreó el contenido. Solo los WebP se incluyen en Git; los PNG originales permanecen en `temp/`, excluido de Git.
 
 | Equipo | PNG original | WebP publicado | Reducción |
-|---|---:|---:|---:|
-| Ryzen | 4,23 MB | 2,79 MB | 33,98 % |
-| Dell | 1,99 MB | 1,32 MB | 33,71 % |
+|---|---|---|---|
+| Ryzen | 4.23 MB | 2.80 MB | 33.79 % |
+| Dell | 1.99 MB | 1.32 MB | 33.60 % |
 
-Tamaños expresados en MB decimales (1 MB = 1 000 000 bytes). Conversión con
-Pillow 12.3.0, `lossless=True`, `quality=100`, `method=6` y `exact=True`.
-El repositorio conserva solo las versiones comprimidas de estas capturas.
+MB son unidades decimales. Los manifiestos conservan dimensiones, escalado, fechas, versión, tamaños y resultado de la comparación, sin copiar snapshots privados.
 
-## Información visible
+## Galería de paletas
 
-La gráfica principal de almacenamiento muestra `/`; los discos adicionales se
-enumeran debajo. Los HDD de la Ryzen permanecen sin montar. La frecuencia Intel
-se expresa en MHz y no equivale al porcentaje de uso que ofrece NVIDIA.
+Las otras nueve paletas se capturaron en el mismo Ryzen sin cambiar resolución, escalado, fuente, idioma o nivel de detalle. La imagen azul se reutiliza del ejemplo principal para evitar duplicarla. La [galería](../reference/appearance.md) muestra las diez capturas reales en el mismo orden para ambos idiomas.
 
-La ciudad mostrada se configuró manualmente para estas instalaciones. Los modelos,
-programas y versiones se descubren por equipo. Los valores visibles representan
-una instantánea y no una recomendación de versiones actuales de esos programas.
-
-Consultar [validación](testing.md) y [recursos de terceros](../../../THIRD_PARTY_NOTICES.md).
+Las capturas pueden mostrar hostname, procesos y la ciudad configurada a mano. Se revisaron los escritorios antes de publicar. Los iconos y fondos de terceros conservan sus derechos; consulta los [avisos](../../../THIRD_PARTY_NOTICES.md).

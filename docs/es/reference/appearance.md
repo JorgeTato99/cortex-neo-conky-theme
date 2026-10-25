@@ -1,33 +1,73 @@
 # Paletas, fuentes y detalle
 
-Diez paletas completas siguen las categorías de acento observadas en Ubuntu 26. Cada una define nueve roles, con colores claros adaptados al fondo oscuro del tema. No cambia el acento ni la fuente del escritorio.
+Las diez variantes se muestran con **capturas reales del mismo Ryzen**, obtenidas mediante el portal normal de GNOME. Solo se cambió la paleta: fuente `ubuntu`, idioma `en` y detalle `full` permanecieron iguales. Al terminar se restauraron los archivos originales de preferencias.
 
-Estas imágenes son renders reales de Conky/Xvfb con datos sintéticos explícitos: **1920 × 1080, escalado 100%, 96 DPI**. Se verificaron contenido, límites, alineación y ausencia de solapamientos. Cada WebP conserva dimensiones y todos los píxeles del PNG original.
+**2560 × 1440 · escalado GNOME 166,67 % · escala interna del tema 1.0.** Capturas del 25 de octubre de 2026, versión 0.1.0. Los valores y el reloj reflejan cada momento; las gráficas reinician su ventana corta al regenerar las tarjetas. No se usaron datos sintéticos ni recoloración de imágenes.
 
-| Palette / Paleta | Font / Fuente | Language / Idioma | Detail / Detalle | Preview |
-|---|---|---|---|---|
-| `blue` | `ubuntu` | `en` | `full` | [blue](../../../assets/previews/blue.webp) |
-| `teal` | `dejavu` | `es` | `essential` | [teal](../../../assets/previews/teal.webp) |
-| `green` | `liberation` | `en` | `full` | [green](../../../assets/previews/green.webp) |
-| `yellow` | `ubuntu` | `es` | `essential` | [yellow](../../../assets/previews/yellow.webp) |
-| `orange` | `dejavu` | `en` | `full` | [orange](../../../assets/previews/orange.webp) |
-| `red` | `liberation` | `es` | `essential` | [red](../../../assets/previews/red.webp) |
-| `pink` | `ubuntu` | `en` | `full` | [pink](../../../assets/previews/pink.webp) |
-| `purple` | `dejavu` | `es` | `essential` | [purple](../../../assets/previews/purple.webp) |
-| `slate` | `liberation` | `en` | `full` | [slate](../../../assets/previews/slate.webp) |
-| `brown` | `ubuntu` | `es` | `essential` | [brown](../../../assets/previews/brown.webp) |
+| Paleta | Color principal | Imagen original |
+|---|---|---|
+| `blue` | `#55AEFF` | [Abrir](../../../assets/screenshots/ryzen-5700x-rtx4060ti.webp) |
+| `teal` | `#56D6CE` | [Abrir](../../../assets/palettes/teal.webp) |
+| `green` | `#96D56C` | [Abrir](../../../assets/palettes/green.webp) |
+| `yellow` | `#F3CC61` | [Abrir](../../../assets/palettes/yellow.webp) |
+| `orange` | `#FFAB75` | [Abrir](../../../assets/palettes/orange.webp) |
+| `red` | `#FF8097` | [Abrir](../../../assets/palettes/red.webp) |
+| `pink` | `#E896E8` | [Abrir](../../../assets/palettes/pink.webp) |
+| `purple` | `#B3A1FF` | [Abrir](../../../assets/palettes/purple.webp) |
+| `slate` | `#A7C8B2` | [Abrir](../../../assets/palettes/slate.webp) |
+| `brown` | `#DDBA8D` | [Abrir](../../../assets/palettes/brown.webp) |
+
+## Azul · `blue`
+
+![CORTEX NEO · Azul](../../../assets/screenshots/ryzen-5700x-rtx4060ti.webp)
+
+## Verde azulado · `teal`
+
+![CORTEX NEO · Verde azulado](../../../assets/palettes/teal.webp)
+
+## Verde · `green`
+
+![CORTEX NEO · Verde](../../../assets/palettes/green.webp)
+
+## Amarillo · `yellow`
+
+![CORTEX NEO · Amarillo](../../../assets/palettes/yellow.webp)
+
+## Naranja · `orange`
+
+![CORTEX NEO · Naranja](../../../assets/palettes/orange.webp)
+
+## Rojo · `red`
+
+![CORTEX NEO · Rojo](../../../assets/palettes/red.webp)
+
+## Rosa · `pink`
+
+![CORTEX NEO · Rosa](../../../assets/palettes/pink.webp)
+
+## Morado · `purple`
+
+![CORTEX NEO · Morado](../../../assets/palettes/purple.webp)
+
+## Pizarra · `slate`
+
+![CORTEX NEO · Pizarra](../../../assets/palettes/slate.webp)
+
+## Marrón · `brown`
+
+![CORTEX NEO · Marrón](../../../assets/palettes/brown.webp)
+
+## Configuración
 
 ```bash
-cortex-neo configure --palette purple --font dejavu --language es --detail-level essential
-cortex-neo configure --palette blue --font ubuntu --language en --detail-level full
+cortex-neo configure --palette purple --font ubuntu --detail-level full
+cortex-neo configure --palette blue
 ```
 
-Los nueve roles son text, primary, secondary, muted, border, accent, warning, graph y background. `theme.json` permite sobrescribirlos con seis dígitos hexadecimales; opacidad de 0 a 1. Los alias neon/contrast/amber se mantienen para migración.
+Cada paleta define nueve roles: text, primary, secondary, muted, border, accent, warning, graph y background. `theme.json` admite colores hexadecimales de seis dígitos y opacidad de 0 a 1. Los alias neon/contrast/amber permanecen para migración.
 
-Fuentes: Ubuntu Sans Mono, DejaVu Sans Mono y Liberation Mono. Si falta una familia, fontconfig comprueba la sustitución y se usa DejaVu o monospace. Los iconos mantienen FontAwesome.
+Los perfiles de fuente son Ubuntu Sans Mono, DejaVu Sans Mono y Liberation Mono; fontconfig comprueba disponibilidad y sustituye familias ausentes. FontAwesome conserva los iconos.
 
-El detalle esencial conserva nombre/modelo, versión, mediciones, gráficas y tops; oculta topología/especificaciones y builds secundarios. Atribuciones y advertencias de contabilidad permanecen. La densidad y el perfil siguen siendo independientes.
+El detalle `essential` oculta especificaciones y builds secundarios, manteniendo modelos, versiones, métricas, gráficas, tops y avisos de contabilidad/atribución. El perfil y la densidad siguen siendo opciones independientes.
 
-[Ubuntu accent source](https://github.com/ubuntu/yaru/blob/master/common/accent-colors.scss.in) · [GNOME upstream accent categories](https://gnome.pages.gitlab.gnome.org/libadwaita/doc/main/enum.AccentColor.html)
-
-Ubuntu añade brown a los nueve acentos de la API upstream de GNOME. La comprobación local `gsettings range org.gnome.desktop.interface accent-color` y la captura de configuración entregada confirman diez opciones; no confundimos nombres antiguos de variantes Yaru con los IDs actuales.
+[Procedencia y compresión](../validation/screenshots.md) · [Configuración](../getting-started/configuration.md)

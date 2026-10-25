@@ -1,0 +1,88 @@
+{
+  "screenshots": [
+    {
+      "captured_at": "2026-10-25T23:33:01.157979+00:00",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "active_monitors": [
+        {
+          "resolution": [
+            2560,
+            1440
+          ],
+          "refresh_hz": 30.000099182128906,
+          "desktop_scale": 1.6666666269302368,
+          "primary": true
+        }
+      ],
+      "work_area": [
+        67,
+        32,
+        1469,
+        832
+      ],
+      "theme_scale": 1.0,
+      "appearance": {
+        "language": "en",
+        "font": "ubuntu",
+        "detail_level": "full"
+      },
+      "palette": "blue",
+      "version": "0.1.0",
+      "revision": "cee0e54b7abdca071148a43ac1c9aca05061ea8d",
+      "id": "ryzen",
+      "file": "assets/screenshots/ryzen-5700x-rtx4060ti.webp",
+      "capture_type": "native GNOME screenshot portal",
+      "original_bytes": 4233955,
+      "webp_bytes": 2803232,
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "desktop_scale": 1.6666666269302368,
+      "webp_sha256": "3e750e60cd62e33f58fdb9ba445bbffbcf8c4f256fdc6afbafdd976c6b606c0e"
+    },
+    {
+      "captured_at": "2026-10-25T23:33:00.994457+00:00",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "active_monitors": [
+        {
+          "resolution": [
+            1920,
+            1080
+          ],
+          "refresh_hz": 24.0,
+          "desktop_scale": 1.25,
+          "primary": true
+        }
+      ],
+      "work_area": [
+        67,
+        32,
+        1469,
+        832
+      ],
+      "theme_scale": 1.0,
+      "appearance": {
+        "language": "en",
+        "font": "ubuntu",
+        "detail_level": "full"
+      },
+      "palette": "blue",
+      "version": "0.1.0",
+      "revision": "cee0e54b7abdca071148a43ac1c9aca05061ea8d",
+      "id": "dell",
+      "file": "assets/screenshots/dell-latitude-5420.webp",
+      "capture_type": "native GNOME screenshot portal",
+      "original_bytes": 1992112,
+      "webp_bytes": 1322744,
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "desktop_scale": 1.25,
+      "webp_sha256": "35856b4448f572c0b61251af922c402ea827f59fe51f6866a81a0cd4b07172ac"
+    }
+  ]
+}
