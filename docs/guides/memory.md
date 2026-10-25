@@ -1,31 +1,16 @@
-# Entender la memoria
+# Understand memory
 
 ```bash
 cortex-neo memory
 cortex-neo memory --pid 1234 --pid 5678
 ```
 
-La tarjeta muestra usada/total y disponible. La caché y los buffers se conservan
-como contadores separados en el snapshot y en el comando; no son cantidades que
-se deban sumar a disponible para reconstruir el total. Linux puede recuperar
-parte de esas páginas. Swap ocupada tampoco demuestra por sí sola presión actual.
+The card shows used, total and available memory. Cache/buffer counters remain separate; do not add them to available to reconstruct total. Linux can reclaim some pages. Occupied swap alone does not prove current memory pressure.
 
-PSI expresa tiempo de espera por memoria. Cero es una lectura válida; un guion
-significa que no se pudo obtener el contador. Una media PSI positiva acredita
-esperas observadas, no identifica automáticamente al proceso responsable ni
-demuestra fuga. Se incluyen medias de 10/60/300 s y actividad de swap entre
-muestras; la primera muestra no inventa una tasa.
+PSI measures time stalled on memory. Zero is a valid observation; unavailable is not zero. Positive PSI indicates observed waits, without identifying a culprit or proving a leak. The command includes 10/60/300-second averages and swap activity deltas. The first sample does not invent a transfer rate.
 
-Los tops usan RSS agrupada, que incluye páginas compartidas. Los procesos QEMU
-se marcan `[VM]`: esa memoria pertenece al proceso del invitado desde el host.
-No se identifica toda instancia QEMU como Docker Desktop. La VM y los
-contenedores que viven dentro de ella no son sumandos independientes del host.
+Application tops group RSS and include shared pages. QEMU is labeled `[VM]`, reflecting host memory used by a guest process. A generic QEMU guest is not automatically Docker Desktop. The VM and containers inside it are not independent host totals.
 
-PSS distribuye páginas compartidas entre procesos; USS refleja páginas privadas.
-Se consultan solo con PIDs explícitos y como máximo cinco por llamada. La lectura
-puede ser más lenta o estar denegada; en esos casos se conserva el estado en vez
-de presentar ceros. El muestreo de dos segundos no recorre smaps.
+PSS apportions shared pages; USS measures private pages. These slower reads require explicit PIDs, at most five per request. Denied or vanished processes keep distinct states. The two-second sampler never scans smaps.
 
-Fuentes: [PSI del kernel](https://docs.kernel.org/accounting/psi.html),
-[RSS/PSS en proc](https://www.kernel.org/doc/html/latest/filesystems/proc.html) y
-[la VM de Docker Desktop](https://docs.docker.com/desktop/setup/install/linux/).
+Sources: [kernel PSI](https://docs.kernel.org/accounting/psi.html), [proc accounting](https://www.kernel.org/doc/html/latest/filesystems/proc.html), [Docker Desktop VM](https://docs.docker.com/desktop/setup/install/linux/).
