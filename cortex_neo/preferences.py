@@ -5,6 +5,8 @@ import math
 import re
 
 from .io import atomic, read_json
+from .fonts import FONTS
+from .palettes import PALETTES
 from .paths import CONFIG
 
 CARD_NAMES = {
@@ -27,7 +29,7 @@ BASE_COLORS = dict(
     accent="B3A1FF",
     warning="FFC979",
 )
-PALETTES = {
+LEGACY_PALETTES = {
     "neon": BASE_COLORS,
     "contrast": {**BASE_COLORS, "text": "FFFFFF", "muted": "C9DBF0", "border": "588DB4"},
     "amber": {**BASE_COLORS, "primary": "FFCC66", "secondary": "FFE7B0", "accent": "9EBFFF"},
@@ -45,8 +47,10 @@ def color(value, default):
 def theme_settings(raw=None):
     raw = raw if isinstance(raw, dict) else {}
     name = raw.get("palette")
-    name = name if isinstance(name, str) and name in PALETTES else "neon"
-    colors = dict(PALETTES[name])
+    available = {**PALETTES, **LEGACY_PALETTES}
+    name = name if isinstance(name, str) and name in available else "blue"
+    selected = {**PALETTES["blue"], **available[name]}
+    colors = {key: value for key, value in selected.items() if key != "background"}
     overrides = raw.get("colors")
     if isinstance(overrides, dict):
         colors.update({key: color(overrides.get(key), value) for key, value in colors.items()})
@@ -62,7 +66,7 @@ def theme_settings(raw=None):
         palette=name,
         colors=colors,
         opacity=opacity,
-        background=color(raw.get("background"), "081220"),
+        background=color(raw.get("background"), selected["background"]),
     )
 
 
@@ -73,6 +77,9 @@ def load_preferences(root=CONFIG):
     hidden = hidden if isinstance(hidden, list) else []
     return {
         **raw,
+        "language": raw.get("language") if raw.get("language") in ("en", "es") else "en",
+        "detail_level": "essential" if raw.get("detail_level") == "essential" else "full",
+        "font": raw.get("font") if raw.get("font") in FONTS else "ubuntu",
         "hidden_cards": sorted(
             {item for item in hidden if isinstance(item, str) and item in CARD_NAMES - {"system"}}
         ),
@@ -100,9 +107,18 @@ def update_preferences(
     profile=None,
     density=None,
     history_hours=None,
+    language=None,
+    detail_level=None,
+    font=None,
 ):
-    if palette is not None and palette not in PALETTES:
+    if palette is not None and palette not in {**PALETTES, **LEGACY_PALETTES}:
         raise ValueError("Unknown palette")
+    if language is not None and language not in ("en", "es"):
+        raise ValueError("Language must be en or es")
+    if detail_level is not None and detail_level not in ("essential", "full"):
+        raise ValueError("Detail level must be essential or full")
+    if font is not None and font not in FONTS:
+        raise ValueError("Unknown font profile")
     if opacity is not None and (not math.isfinite(opacity) or not 0 <= opacity <= 1):
         raise ValueError("Opacity must be between 0 and 1")
     if anchor is not None and anchor not in ("left", "right"):
@@ -137,6 +153,9 @@ def update_preferences(
         settings["density"] = density
     if history_hours is not None:
         settings["history_hours"] = history_hours
+    for key, value in (("language", language), ("detail_level", detail_level), ("font", font)):
+        if value is not None:
+            settings[key] = value
     atomic(root / "theme.json", json.dumps(theme, indent=2))
     atomic(root / "settings.json", json.dumps(settings, indent=2))
     return load_preferences(root)
