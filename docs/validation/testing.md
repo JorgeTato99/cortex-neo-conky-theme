@@ -1,79 +1,15 @@
-# Pruebas y límites
-
-La suite combina lógica pura, callbacks Lua reales, transacciones de archivos,
-datos sintéticos de hardware y pruebas de instalación/renderizado. La evidencia
-histórica de los primeros equipos se conserva en [validación inicial](initial-1.1.0.md).
-
-## Comprobaciones rápidas
+# Tests and evidence limits
 
 ```bash
 bash scripts/check.sh
 ```
 
-La suite unittest se complementa con pruebas de integración por distribución y
-particiones parametrizadas de pantalla. El runner informa el conteo vigente.
+Checks include Ruff lint/format, StyLua, Bash syntax, local Markdown links and unittest. Tests run real Lua callbacks, file transactions and process ownership contracts. Hardware fixtures are synthetic and include missing sensors/denied permissions. Parameterized geometry covers optional cards, four-to-six-week calendars, portrait, offset work areas and scaling. Logical geometry alone does not establish physical readability.
 
-Se comprueban Ruff, formato Python/Lua, sintaxis Bash, enlaces locales de Markdown
-y la suite unittest. La CI usa Python 3.11–3.15. Un trabajo separado ejecuta la
-suite en ARM64 nativo, sin afirmar que tenga los sensores de una placa física.
+Appearance tests cover the ten complete role sets, graph color propagation, invalid config atomicity, three font profiles/fallbacks, independent essential/full detail, bilingual messages and placeholder parity. They exercise production Lua callbacks and preserve user data strings. Distribution tests render actual Conky windows in Xvfb, checking mapped processes, visible content and Lua/config errors.
 
-Las pruebas de instalación usan un hogar temporal real. Solo se reemplaza el
-lanzamiento de procesos externos para inyectar fallos. Cubren instalación limpia,
-reinstalación, fallo de preparación, fallo de activación, fallo del cambio atómico,
-preservación del entorno anterior, migración, desinstalación, rutas XDG y rechazo
-de enlaces ajenos. Estas pruebas no son evidencia de apt o systemd reales.
+Installer unit tests use real temporary homes but replace external process launching for controlled failures. They cover clean/repeated installs, preparation/activation/atomic-switch failures, environment/config recovery, XDG paths, legacy migration, ownership and removal. They do not by themselves prove apt or a real user systemd session.
 
-Los fixtures de AMD/Intel/NVIDIA y discos cifrados son datos sintéticos, sin
-identificadores de equipos personales. Se incluyen sensores ausentes y permisos
-denegados. La geometría se verifica para combinaciones de tarjetas opcionales,
-calendarios de cuatro a seis semanas, escritorios desplazados, verticales y
-escalados. Las dimensiones lógicas no acreditan por sí solas legibilidad física.
+CI adds clean Ubuntu 24.04/26.04 and Debian 12/13 installs, dependency imports, unit parser checks, reinstallation preserving preferences, real render and removal preserving personal data. Python logic/Lua runs on 3.11–3.15 plus native ARM64. Container jobs publish diagnostic PNGs for seven days. No test captures a personal desktop automatically.
 
-Los contratos de las herramientas locales cubren preferencias persistentes,
-perfiles, exportación de contexto, memoria/PSI, Docker por contexto, captura de
-incidentes y agregados históricos. Se comprueban ausencias, límites, errores de
-escritura, identidad de procesos y exclusión de datos privados.
-Se añaden referencias concurrentes sin sobrescritura, cancelación de tareas sin
-afectar procesos ajenos, indicadores de presentación corruptos y lectura directa
-desde Lua, e identidad de código con archivos desconocidos o modificados.
-
-## Instalaciones desde cero
-
-El driver siguiente solo funciona como root dentro de un contenedor desechable
-con la variable explícita de prueba. No se debe ejecutar para preparar un host.
-
-```bash
-docker run --rm -e CORTEX_NEO_TEST_CONTAINER=1 \
-  -v "$PWD:/source:ro" ubuntu:24.04 \
-  bash -c 'cp -a /source /tmp/project && cd /tmp/project && bash scripts/check_distribution.sh'
-```
-
-Se ejecuta para Ubuntu 24.04, Ubuntu 26.04, Debian 12 y Debian 13. El driver crea
-un usuario de prueba, instala dependencias mediante el instalador normal,
-comprueba imports reales, ejecuta la suite, reinstala conservando una preferencia,
-renderiza con Conky en Xvfb y desinstala conservando los datos personales.
-También analiza las unidades generadas con `systemd-analyze --user verify`,
-sin sustituir ese parser por un comando simulado.
-
-Xvfb utiliza Openbox y un compositor dentro del contenedor. Se comprueban nueve
-procesos Conky vivos, píxeles distintos del fondo, contenido en cada tarjeta y
-ausencia de errores Lua/configuración. Se guarda una imagen de diagnóstico en
-`artifacts/distribution-render.png`, que no se versiona y se adjunta a la ejecución
-de GitHub Actions durante siete días. No se capturan pantallas
-del usuario durante estas pruebas.
-
-## Sesión gráfica real
-
-```bash
-cortex-neo doctor
-python_del_entorno -I scripts/check_desktop.py
-```
-
-El último comando se ejecuta desde el código de la instalación y comprueba
-ventanas, alineación, límites, servicios y datos recientes. Las
-[capturas reales](screenshots.md) tienen su propia resolución y escalado documentados.
-
-Los contenedores no arrancan una sesión GNOME Wayland completa ni verifican
-drivers físicos o sus portales. Los contratos con comandos sustituidos tampoco
-acreditan una recuperación real frente a corte de corriente. Se distinguen estas
-capas en la [matriz de compatibilidad](../reference/compatibility.md).
+Native Ryzen and Dell deployment checks add actual session units, fresh telemetry and measured card bounds. Their results do not certify every compositor or driver. [Historical validation](initial-1.1.0.md) and [screenshots](screenshots.md) are explicitly dated. Report actual conditions and untested behavior through [community validation](community.md).
