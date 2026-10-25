@@ -32,11 +32,11 @@ systemd-analyze --user verify "$HOME/.config/systemd/user/cortex-neo.service" \
 printf '%s\n' '{"personal_test": true}' > "$HOME/.config/cortex-neo/settings.json"
 bash scripts/install.sh --skip-system-deps --no-start
 grep -q personal_test "$HOME/.config/cortex-neo/settings.json"
-CORTEX_NEO_HEADLESS_TEST=1 xvfb-run -a -s '-screen 0 1920x1080x24' \
+CORTEX_NEO_HEADLESS_TEST=1 xvfb-run -a -s '-screen 0 1920x1080x24 -dpi 96' \
     "$python" scripts/render_smoke.py --output "$HOME/render.png"
-CORTEX_NEO_HEADLESS_TEST=1 xvfb-run -a -s '-screen 0 1920x1080x24' \
+CORTEX_NEO_HEADLESS_TEST=1 xvfb-run -a -s '-screen 0 1920x1080x24 -dpi 96' \
     "$python" scripts/render_smoke.py --profile compact --density comfortable --output "$HOME/render-compact.png"
-CORTEX_NEO_HEADLESS_TEST=1 xvfb-run -a -s '-screen 0 1920x1080x24' \
+CORTEX_NEO_HEADLESS_TEST=1 xvfb-run -a -s '-screen 0 1920x1080x24 -dpi 96' \
     "$python" scripts/render_smoke.py --palette purple --font liberation --language es --detail-level essential --output "$HOME/render-spanish.png"
 bash scripts/install.sh --uninstall
 test ! -e "$HOME/.local/share/cortex-neo"

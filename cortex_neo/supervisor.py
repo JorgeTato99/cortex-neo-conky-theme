@@ -52,7 +52,7 @@ def overflow(layout, monitor_scale):
     return False
 
 
-def launch(layout, snapshot, conky, monitor_scale, build=None):
+def launch(layout, snapshot, conky, monitor_scale, build=None, *, output=None):
     children = []
     generation = None
     # Integer Xft sizes can round up on smaller displays; verify actual windows.
@@ -72,7 +72,11 @@ def launch(layout, snapshot, conky, monitor_scale, build=None):
         }
         try:
             for path in sorted(generation.glob("*.conf")):
-                children.append(subprocess.Popen([conky, "-c", str(path)], env=env))
+                children.append(
+                    subprocess.Popen(
+                        [conky, "-c", str(path)], env=env, stdout=output, stderr=output
+                    )
+                )
             time.sleep(3)
             if any(child.poll() is not None for child in children):
                 raise RuntimeError("A Conky card exited during startup; see the journal")

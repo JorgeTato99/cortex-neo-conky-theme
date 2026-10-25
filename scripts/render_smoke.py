@@ -4,12 +4,14 @@ import argparse
 import calendar
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
 import tempfile
 import time
 from pathlib import Path
+from threading import Event, Thread
 
 SOURCE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SOURCE))
@@ -35,6 +37,16 @@ def main():
     os.environ.pop("WAYLAND_DISPLAY", None)
     os.environ["GDK_SCALE"] = "1"
     os.environ["GDK_DPI_SCALE"] = "1"
+    isolation = tempfile.TemporaryDirectory(prefix="cortex-render-xdg-")
+    for variable, folder in (
+        ("XDG_CACHE_HOME", "cache"),
+        ("XDG_CONFIG_HOME", "config"),
+        ("XDG_STATE_HOME", "state"),
+        ("XDG_RUNTIME_DIR", "runtime"),
+    ):
+        destination = Path(isolation.name) / folder
+        destination.mkdir(mode=0o700)
+        os.environ[variable] = str(destination)
     import gi
 
     gi.require_version("Gdk", "3.0")
@@ -48,8 +60,8 @@ def main():
     from cortex_neo.display import monitor_area
     from cortex_neo.io import atomic, lua
     from cortex_neo.layout import calculate
-    from cortex_neo.render import generate
-    from cortex_neo.supervisor import stop_children
+    from cortex_neo.paths import CACHE
+    from cortex_neo.supervisor import launch, stop_children
 
     Gdk.init([])
     display = Gdk.Display.get_default()
@@ -57,6 +69,8 @@ def main():
     assert area[2] > 0 and area[3] > 0, "Production display discovery failed"
     root = display.get_default_screen().get_root_window()
     processes = []
+    stop_updates = Event()
+    updater = None
     with tempfile.TemporaryDirectory() as temporary:
         directory = Path(temporary)
         logs = (directory / "conky.log").open("w+")
@@ -139,7 +153,7 @@ def main():
                     ],
                 },
             }
-            atomic(directory / "dashboard.lua", "return " + lua(snapshot))
+            atomic(CACHE / "dashboard.lua", "return " + lua(snapshot))
             banner = subprocess.check_output(["conky", "--version"], text=True)
             plan = calculate(area, snapshot, profile=options.profile, density=options.density)
             from cortex_neo.palettes import PALETTES
@@ -152,24 +166,65 @@ def main():
                 language=options.language,
                 detail_level=options.detail_level,
             )
-            generation = generate(plan, snapshot, capabilities(banner))
-            environment = {
-                **os.environ,
-                "CORTEX_NEO_CACHE_DIR": str(directory),
-                "CORTEX_NEO_THEME_DIR": str(SOURCE / "theme"),
-                "CORTEX_NEO_UI_FILE": str(generation / "ui.lua"),
-            }
-            for path in generation.glob("*.conf"):
-                processes.append(
-                    subprocess.Popen(
-                        ["conky", "-c", str(path)], env=environment, stdout=logs, stderr=logs
-                    )
-                )
+
+            def update_snapshot():
+                while not stop_updates.is_set():
+                    snapshot["sampled_at"] = time.time()
+                    atomic(CACHE / "dashboard.lua", "return " + lua(snapshot))
+                    stop_updates.wait(1)
+
+            updater = Thread(target=update_snapshot, daemon=True)
+            updater.start()
+            children, _ = launch(plan, snapshot, "conky", 1, capabilities(banner), output=logs)
+            processes.extend(children)
             for _ in range(5):
-                snapshot["sampled_at"] = time.time()
-                atomic(directory / "dashboard.lua", "return " + lua(snapshot))
                 time.sleep(1)
             assert all(p.poll() is None for p in processes), "A graphical test process exited"
+            geometry = {}
+            for name in plan["cards"]:
+                measured = subprocess.check_output(
+                    ["xwininfo", "-name", "Cortex Neo - " + name], text=True
+                )
+                geometry[name] = {
+                    key: int(re.search(pattern + r"\s*(-?\d+)", measured).group(1))
+                    for key, pattern in (
+                        ("x", "Absolute upper-left X:"),
+                        ("y", "Absolute upper-left Y:"),
+                        ("w", "Width:"),
+                        ("h", "Height:"),
+                    )
+                }
+            options.output.parent.mkdir(parents=True, exist_ok=True)
+            options.output.with_suffix(".geometry.json").write_text(
+                json.dumps({"layout": plan, "actual": geometry}, indent=2), encoding="utf-8"
+            )
+            for name, expected in plan["cards"].items():
+                actual = geometry[name]
+                target = dict(
+                    x=round(plan["x"] + expected["x"]),
+                    y=round(plan["y"] + expected["y"]),
+                    w=round(expected["w"]),
+                    h=round(expected["h"]),
+                )
+                assert all(abs(actual[key] - value) <= 2 for key, value in target.items()), (
+                    name,
+                    actual,
+                    target,
+                    "Run Xvfb with -dpi 96",
+                )
+                assert actual["x"] >= area[0] - 2 and actual["y"] >= area[1] - 2
+                assert actual["x"] + actual["w"] <= area[0] + area[2] + 2
+                assert actual["y"] + actual["h"] <= area[1] + area[3] + 2
+            for name, first in geometry.items():
+                for other, second in geometry.items():
+                    if name >= other:
+                        continue
+                    assert not (
+                        min(first["x"] + first["w"], second["x"] + second["w"])
+                        > max(first["x"], second["x"])
+                        and min(first["y"] + first["h"], second["y"] + second["h"])
+                        > max(first["y"], second["y"])
+                    ), (name, other)
             image = Gdk.pixbuf_get_from_window(root, 0, 0, 1920, 1080)
             after = bytes(image.get_pixels())
             changed = sum(a != b for a, b in zip(before, after, strict=True))
@@ -219,12 +274,17 @@ def main():
                         "detail_level": options.detail_level,
                         "resolution": [1920, 1080],
                         "desktop_scale": 1,
+                        "dpi": 96,
                     }
                 )
             )
         finally:
+            stop_updates.set()
+            if updater:
+                updater.join(timeout=2)
             stop_children(processes)
             logs.close()
+            isolation.cleanup()
     return 0
 
 
