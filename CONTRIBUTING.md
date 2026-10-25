@@ -1,68 +1,31 @@
-# Contribuir a CÓRTEX NEO
+# Contributing to CORTEX NEO
 
-El tema se desarrolla en Python y Lua. Mantener comentarios/docstrings en inglés,
-documentación de uso en español y texto UTF-8 con LF. Usar cuatro espacios y las
-configuraciones de Ruff y StyLua incluidas en el repositorio.
+[Español](docs/es/contributing.md)
 
-## Entorno de desarrollo
+Use English code comments/docstrings, primary English documentation and matching Spanish pages. Keep UTF-8/LF, four-space indentation, Ruff and the checked-in StyLua configuration.
 
 ```bash
 sudo apt install python3-venv liblua5.4-0
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-dev.txt
-```
-
-Instalar [StyLua 2.6.0](https://github.com/JohnnyMorganz/StyLua/releases/tag/v2.6.0)
-y dejar `stylua` en el `PATH`. La suite ejecuta los callbacks Lua mediante la
-biblioteca compartida; no necesita GPU, escritorio, Docker ni credenciales reales.
-
-```bash
 bash scripts/check.sh
 ```
 
-El workflow ejecuta la suite con Python 3.11–3.15 y en ARM64. Otros trabajos
-instalan el proyecto desde cero en cuatro distribuciones y renderizan con Conky
-real bajo Xvfb. Esa pantalla virtual no acredita GNOME Wayland ni drivers físicos;
-las comprobaciones en equipos reales se documentan por separado.
+Install [StyLua 2.6.0](https://github.com/JohnnyMorganz/StyLua/releases/tag/v2.6.0) on PATH. Unit tests run real Lua callbacks without a desktop, Docker, GPU or credentials. Distribution integration tests install/render in disposable containers; physical session evidence remains separate.
 
-## Dónde cambiar cada cosa
-
-| Cambio | Archivos |
+| Change | Source |
 |---|---|
-| Contenido o estilo de tarjetas | `theme/cards/`, `theme/*.lua`, `cortex_neo/render.py` |
-| Escala, columnas y alineación | `cortex_neo/layout.py` |
-| Sensores e inventario | `cortex_neo/system.py`, `gpu.py`, `telemetry.py` |
-| Versiones de programas | `cortex_neo/versions.py` |
-| Ciudad manual y caché meteorológica | `cortex_neo/weather.py` |
-| Instalación y servicios | `scripts/install.sh`, `scripts/manage_installation.py`, `systemd/` |
-| Diagnóstico y capacidades de Conky | `cortex_neo/diagnostics.py`, `cortex_neo/conky.py` |
+| Card content/style | theme/cards, theme Lua, render.py |
+| Geometry/alignment | layout.py |
+| Hardware and sampling | system.py, gpu.py, telemetry.py |
+| Tool inventory | versions.py |
+| Weather/manual city | weather.py |
+| Appearance and languages | preferences.py, palettes.py, fonts.py, i18n.py, locales |
+| Installation/services | scripts and systemd |
 
-Consultar [arquitectura](docs/reference/architecture.md) antes de mezclar responsabilidades.
-Después de editar fuentes, ejecutar de nuevo el instalador desde el clon para
-aplicarlas a `~/.local/share/cortex-neo/` sin sobrescribir las preferencias.
+Read [architecture](docs/reference/architecture.md) before moving responsibilities. Reinstall from your clone to apply source edits without overwriting personal preferences. Test observable behavior, failure boundaries and preservation, rather than mirroring implementation details.
 
-## Reglas de comportamiento
+Missing tools/sensors stay omitted/unavailable. Version probes must not download toolchains. Bound work and histories, preserve source cadences, and keep location exclusively manual. Retain MIT attribution.
 
-- Ausencia de herramienta o sensor: omitir el dato, sin inventar valores cero.
-- No descargar toolchains durante consultas de versión ni bloquear métricas con red.
-- Mantener la ciudad exclusivamente manual; no introducir fuentes de geolocalización.
-- Limitar recorridos, consultas e históricos; respetar la cadencia de cada fuente.
-- Conservar los avisos de copyright y la licencia MIT al reutilizar el código.
-
-Una propuesta debe explicar el problema, el resultado observable y la validación
-realizada. Para cambios visuales, incluir capturas y resolución/escala del monitor.
-Revisar el contenido de las capturas antes de publicarlas.
-
-Los informes de compatibilidad tienen una plantilla propia. Separar resolución
-física, escala del escritorio y escala interna del tema; indicar qué se midió y
-qué quedó sin comprobar. `cortex-neo version` identifica las fuentes y `report`
-prepara campos seleccionados. No adjuntar snapshots, entornos o registros privados.
-La [guía inglesa](docs/en/usage.md) reúne los comandos públicos; mantenerla junto
-a la documentación española cuando cambie una interfaz.
-
-Los contratos de instalación sustituyen solo los comandos externos; ejercitan
-las operaciones reales de archivos en un hogar temporal. El fallo de preparación
-debe conservar la instalación activa; el de activación debe restaurarla con su
-entorno. El driver `check_distribution.sh` solo admite contenedores desechables.
-Consulta [pruebas](docs/validation/testing.md) para reproducir cada capa.
+Explain the concrete problem/result and verification. Visual changes need screenshots with physical resolution and desktop scaling, reviewed for private content. Translate matching docs/catalogs in the same change; preserve placeholders. Add notable changes to [Unreleased](CHANGELOG.md). Use the compatibility form for actual checked environments and state limits. Review `version`/`report` output before sharing; never attach raw snapshots, environments or private records.

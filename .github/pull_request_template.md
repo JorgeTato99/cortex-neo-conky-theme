@@ -1,11 +1,11 @@
-## Problema y resultado
+## Problem and resulting behavior
 
-Describe qué cambia y el comportamiento observable.
+Describe the concrete trigger and observable change.
 
-## Comprobación
+## Verification
 
-Indica los comandos ejecutados. Para cambios visuales, añade capturas y resolución/escala.
+Include commands/results. Visual changes need reviewed screenshots with physical resolution and desktop scaling.
 
-## Consideraciones
+## Maintenance
 
-Explica cualquier dependencia nueva, cambio de cadencia o efecto sobre preferencias existentes.
+Describe dependency/cadence/preference effects. Update both languages and matching catalog keys. Add notable user changes to Unreleased.
