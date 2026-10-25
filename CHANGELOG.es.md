@@ -30,6 +30,11 @@ Ejemplo: una capacidad completa nueva puede ir en 0.2.0; corregir valores obsole
 
 ## [Unreleased]
 
+### 📚 Documentation
+
+- Generar los README inglés y español desde una estructura común, con comprobaciones de CI contra divergencias de traducción/estructura.
+- Renovar los dos ejemplos nativos y añadir una galería separada de diez paletas con capturas actuales de GNOME, resolución/escalado documentados y compresión WebP sin pérdida verificada.
+
 ## [0.1.0] - 2026-10-25 - Lanzamiento internacional
 
 ### 🎯 Resumen

@@ -14,4 +14,4 @@ MIT covers original CORTEX NEO code/documentation. It does not relicense externa
 | [Open-Meteo](https://open-meteo.com/) | Weather data attribution, CC BY 4.0, visible in the card; check provider terms for your usage |
 | Ubuntu / GNOME accent categories | Palette inspiration; original theme color definitions, no desktop assets copied |
 
-Real desktop screenshots include interfaces, icons and wallpaper belonging to their authors. They are documentation, not a wallpaper bundle or an additional license for those assets. Synthetic previews use generated fixture data and plain test backgrounds.
+Real desktop screenshots include interfaces, icons and wallpaper belonging to their authors. They are documentation, not a wallpaper bundle or an additional license for those assets. Headless CI render artifacts use synthetic fixture data and are separate from the published native captures.

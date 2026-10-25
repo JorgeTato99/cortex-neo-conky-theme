@@ -32,6 +32,11 @@ Example: add a complete new dashboard capability in 0.2.0; correct a stale-value
 
 ## [Unreleased]
 
+### 📚 Documentation
+
+- Generate English and Spanish READMEs from one shared layout, with CI checks against translation/structure drift.
+- Refresh both native desktop examples and add a separate ten-palette gallery using current GNOME captures, documented resolution/scaling and verified lossless WebP compression.
+
 ## [0.1.0] - 2026-10-25 - International desktop launch
 
 ### 🎯 Summary

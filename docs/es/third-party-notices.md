@@ -16,3 +16,5 @@ iconos, fondos de pantalla ni marcas que aparezcan en las capturas.
 Las capturas son documentación de dos escritorios reales. Incluyen interfaces,
 iconos y fondos que pertenecen a sus respectivos autores; no son un paquete de
 fondos de pantalla ni una licencia adicional sobre esos recursos.
+
+Los artefactos de render de CI usan datos sintéticos y se mantienen separados de las capturas nativas publicadas.

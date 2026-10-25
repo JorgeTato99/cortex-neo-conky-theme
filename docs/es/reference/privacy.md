@@ -53,3 +53,5 @@ con ambos escritorios despejados y autorizadas para documentar este repositorio.
 
 Los ejemplos versionados no incluyen la configuración personal, claves SSH/LUKS,
 tokens, endpoints remotos ni respaldos administrativos de los equipos.
+
+Los ejemplos y la galería publicados usan capturas nativas autorizadas. Los artefactos de render de CI usan fixtures sintéticos y se mantienen separados de esas imágenes.

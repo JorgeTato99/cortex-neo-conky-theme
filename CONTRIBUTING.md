@@ -29,3 +29,5 @@ Read [architecture](docs/reference/architecture.md) before moving responsibiliti
 Missing tools/sensors stay omitted/unavailable. Version probes must not download toolchains. Bound work and histories, preserve source cadences, and keep location exclusively manual. Retain MIT attribution.
 
 Explain the concrete problem/result and verification. Visual changes need screenshots with physical resolution and desktop scaling, reviewed for private content. Translate matching docs/catalogs in the same change; preserve placeholders. Add notable changes to [Unreleased](CHANGELOG.md). Use the compatibility form for actual checked environments and state limits. Review `version`/`report` output before sharing; never attach raw snapshots, environments or private records.
+
+README changes use one shared template and inline language catalogs. Run `python3 scripts/generate_readme.py`, then `--check`; see [documentation maintenance](docs/reference/documentation.md). Update both gallery languages with the same images and order.

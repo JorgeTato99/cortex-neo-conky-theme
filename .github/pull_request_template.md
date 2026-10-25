@@ -9,3 +9,5 @@ Include commands/results. Visual changes need reviewed screenshots with physical
 ## Maintenance
 
 Describe dependency/cadence/preference effects. Update both languages and matching catalog keys. Add notable user changes to Unreleased.
+
+Regenerate all READMEs after changing their shared template, catalogs or screenshot metadata.

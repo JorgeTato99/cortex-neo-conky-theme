@@ -11,3 +11,5 @@ English is the primary language. [Español](es/README.md) · [Project overview](
 Configuration IDs, command names and JSON field names remain stable English identifiers in both languages. Translate explanatory text, not executable examples.
 
 [Appearance gallery: palettes, fonts and detail](reference/appearance.md).
+
+[Maintaining translated READMEs](reference/documentation.md).

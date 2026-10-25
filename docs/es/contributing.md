@@ -68,3 +68,5 @@ entorno. El driver `check_distribution.sh` solo admite contenedores desechables.
 Consulta [pruebas](validation/testing.md) para reproducir cada capa.
 
 Mantén los catálogos en/es con las mismas claves y placeholders. Actualiza ambas páginas en el mismo cambio y registra lo notable en [Unreleased](../../CHANGELOG.es.md).
+
+Los cambios de README usan una plantilla común y catálogos de texto. Ejecuta `python3 scripts/generate_readme.py` y después `--check`; consulta [mantenimiento de documentación](reference/documentation.md). Actualiza las dos galerías con las mismas imágenes y orden.

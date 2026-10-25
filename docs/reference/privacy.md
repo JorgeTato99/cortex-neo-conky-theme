@@ -14,6 +14,6 @@ Open-Meteo receives the configured coordinates and ordinary request network info
 
 ## Screenshots and public files
 
-The normal GNOME screenshot portal can require session permission even with sudo. Captures go under `~/.local/state/cortex-neo/`; review hostnames, processes, city, versions and other windows before sharing. The repository includes authorized historical real-desktop examples and clearly labeled synthetic render previews. Source examples contain no personal settings, SSH/LUKS keys, tokens, remote endpoints or administrative backups.
+The normal GNOME screenshot portal can require session permission even with sudo. Captures go under `~/.local/state/cortex-neo/`; review hostnames, processes, city, versions and other windows before sharing. Published examples and palette galleries use authorized native desktop captures. Headless CI artifacts use synthetic fixtures and are separate from those images. Source examples contain no personal settings, SSH/LUKS keys, tokens, remote endpoints or administrative backups.
 
 `temp/` is excluded from Git. Local research, old repository recovery bundles and deployment evidence stay there. Runtime snapshots/history are also ignored. See [sharing](../guides/sharing.md), [incidents](../guides/incidents.md), [tasks](../guides/tasks.md) and [history](../guides/history.md) for retention and scope.
