@@ -6,7 +6,9 @@ import subprocess
 import sys
 
 from .conky import capabilities
+from .fonts import FONTS
 from .i18n import tr
+from .preferences import load_preferences
 
 MINIMUM_PYTHON = (3, 11)
 
@@ -66,9 +68,10 @@ def inspect(*, session=True, runner=run, locate=shutil.which, version=None):
             tr("Actual import in the theme interpreter."),
             tr("Reinstall with bash scripts/install.sh; GTK requires the system Python."),
         )
+    selected_font = FONTS[load_preferences()["font"]]
     for name, family, optional in (
         ("icons", "FontAwesome", False),
-        ("monospace", "Ubuntu Sans Mono", True),
+        ("monospace", selected_font, True),
     ):
         result = runner(["fc-match", "-f", "%{family}", family])
         actual = result.stdout.strip()

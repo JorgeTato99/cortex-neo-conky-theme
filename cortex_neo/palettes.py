@@ -128,5 +128,3 @@ _ROWS = {
     ),
 }
 PALETTES = {name: dict(zip(ROLES, values, strict=True)) for name, values in _ROWS.items()}
-# Read old configurations without resetting unrelated personal choices.
-ALIASES = {"neon": "blue", "amber": "yellow", "contrast": "blue"}
