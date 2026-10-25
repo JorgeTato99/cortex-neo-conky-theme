@@ -1,28 +1,15 @@
-# Pantallas y escalado
+# Displays and scaling
 
-La resolución física del monitor y el escalado del escritorio son datos
-distintos. Por ejemplo, 1920 × 1080 al 125 % y 2560 × 1440 al 166,67 % producen
-aproximadamente el mismo escritorio lógico de 1536 × 864.
+Three distinct measurements matter: physical display resolution, desktop scaling (GNOME percentage or GDK factor), and the internal theme scale. A 4K display at 200% does not provide a 3840-pixel logical work area. Always record both resolution and desktop scaling when sharing a screenshot.
 
-El tema calcula la disposición en el área útil lógica que entrega GDK mediante
-XWayland, excluyendo paneles y dock. La escala interna del tema se aplica a
-fuentes, márgenes, gráficas e iconos. No es el porcentaje de escalado de GNOME.
+The theme queries the selected monitor's GDK work area, excluding panels and docks, then fits an independent-card composition with matching margins. It supports landscape and portrait layouts, mixed card availability, four-to-six-week calendars and full/compact profiles. CPU/RAM rows and GPU/storage rows share heights. The calendar fills its column to the common bottom edge.
 
-`settings.json` admite `monitor: "primary"` o el índice de un monitor, y
-`layout: "auto"`, `"landscape"` o `"portrait"`. `scale_multiplier` entre 0.5 y 1.0
-reduce proporcionalmente el ajuste automático. Los cambios de geometría se
-comprueban cada diez segundos.
+```json
+{"monitor":"primary","layout":"auto","scale_multiplier":1.0}
+```
 
-En horizontal hay hasta cuatro columnas; en vertical se organizan en dos.
-Las tarjetas opcionales ausentes se retiran. CPU/RAM y GPU/almacenamiento
-comparten alturas por fila. El calendario completa el borde inferior de su
-columna en horizontal.
+`monitor` also accepts a zero-based index. `scale_multiplier` accepts 0.5–1. Automatic profile selection uses logical work-area thresholds. Every ten seconds the supervisor checks display/capability/preferences signatures and regenerates only when those change. Actual Xft window heights are checked after mapping, with bounded font fitting for integer rounding.
 
-El supervisor mide las ventanas Xft reales y corrige redondeos de fuente. Que
-una composición quepa matemáticamente no garantiza legibilidad física en un
-monitor pequeño de alta densidad. Las [capturas reales](../validation/screenshots.md)
-documentan resolución y escalado conjuntamente.
+Compact mode and comfortable density improve readability on small screens; hiding optional cards can help. Minimum font sizes do not create physical space on exceptionally small work areas. Conky uses XWayland under Wayland; desktop support still requires native verification.
 
-El tema no cambia la resolución ni configura adaptadores virtuales o RustDesk.
-Las pruebas Xvfb acreditan dibujo sobre X11; no simulan por completo GNOME
-Wayland, sus portales ni un driver NVIDIA real.
+Changing resolution can restart a remote capture stream independently of the dashboard. The project does not change monitor modes, GNOME login state or RustDesk settings. See [screenshots](../validation/screenshots.md) for measured desktop examples.
