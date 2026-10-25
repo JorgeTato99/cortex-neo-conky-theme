@@ -1,36 +1,20 @@
-# Referencias y comparación explícita
+# Named observations and comparisons
 
 ```bash
-cortex-neo baseline-save --name frontend-validado
+cortex-neo baseline-save --name frontend-working
 cortex-neo baselines
-cortex-neo compare --name frontend-validado
-cortex-neo baseline-export --name frontend-validado > ~/frontend-context.json
-cortex-neo compare --input ~/otro-equipo-context.json
-cortex-neo baseline-remove --name frontend-validado
+cortex-neo compare --name frontend-working
+cortex-neo baseline-export --name frontend-working > ~/reference.json
+cortex-neo compare --input ~/other-host.json
+cortex-neo baseline-remove --name frontend-working
 ```
 
-Una referencia conserva la ficha seleccionada de contexto: sistema/kernel,
-arquitectura, CPU/RAM, modelo/driver GPU, sensores observados, contextos Docker
-y versiones detectadas. No contiene hostname, procesos, ubicación ni rutas de
-proyectos. El nombre que elijas sí puede ser privado; no forma parte de la
-ficha exportada. El driver puede ser una versión o el nombre del módulo según
-lo que exponga su proveedor.
+A baseline stores selected OS/kernel/architecture, CPU/RAM, GPU model/driver and observed sensors, Docker contexts and tool versions. It excludes hostname, processes, location and project paths. Your chosen name remains private and is omitted from export. GPU driver may be a module name or version, depending on provider.
 
-No se sobrescriben nombres, ni siquiera cambiando mayúsculas. Hay espacio para
-veinte referencias; al alcanzar el límite hay que exportar o quitar una
-explícitamente. No se purgan automáticamente referencias anteriores. Los
-registros privados viven en `~/.local/state/cortex-neo/baselines/`.
+Names are never overwritten, including case-only changes. Twenty private baselines fit under `~/.local/state/cortex-neo/baselines/`; at the limit, explicitly export/remove one. There is no automatic pruning.
 
-Para comparar dos equipos, exporta `cortex-neo context --format json` en uno,
-copia tú el archivo al otro y usa `compare --input`. No hay descubrimiento,
-sincronización ni conexiones nuevas. También se puede guardar una ficha
-importada mediante `baseline-save --name NOMBRE --input ARCHIVO`.
+To compare machines, manually transfer `cortex-neo context --format json` output, then use `compare --input`. There is no network discovery/synchronization. `baseline-save --name NAME --input FILE` stores an imported context.
 
-Se admiten fichas versión uno, JSON de hasta 1 MiB y solo campos seleccionados.
-Se comparan observaciones, no instalaciones completas. Un inventario parcial
-produce `partial_inventory`; una versión ausente no demuestra eliminación.
-La fecha del inventario de software se conserva separada de la muestra de CPU.
-Las fichas antiguas que no la incluyen indican edad desconocida.
+Only selected version-one contexts up to 1 MiB are accepted. Inventories describe observations, not exhaustive installations; partial queries yield `partial_inventory`, and missing versions do not prove removal. Software inventory age is separate from live CPU age; older contexts without that timestamp report unknown age.
 
-Una coincidencia temporal o igualdad de versiones globales no demuestra causa
-de un fallo ni igualdad de dependencias/entornos activos de cada proyecto.
+Equal global versions do not establish equal project dependency environments. Temporal coincidence does not establish causality.
