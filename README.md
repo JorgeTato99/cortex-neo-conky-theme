@@ -63,3 +63,9 @@ Run the same installer from a newly extracted ZIP or your updated checkout, then
 [Contributions](CONTRIBUTING.md), [compatibility reports](docs/validation/community.md) and new translations are welcome. English source docs and Spanish counterparts live in one branch; see [localization](docs/reference/localization.md).
 
 Created by [Jorge Hernández Montero · JorgeTato99](https://github.com/JorgeTato99). MIT licensed: retain the copyright notice and license when reusing this work. External fonts, icons, weather data and software retain their own rights; see [third-party notices](THIRD_PARTY_NOTICES.md).
+
+![CORTEX NEO · blue](assets/previews/blue.webp)
+
+Actual Conky/Xvfb render with synthetic data · 1920 × 1080 · 100% scaling · 96 DPI · lossless WebP.
+
+[All ten previews and configuration](docs/reference/appearance.md).

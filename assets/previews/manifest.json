@@ -1,0 +1,205 @@
+{
+  "captured_on": "2026-10-25",
+  "previews": [
+    {
+      "palette": "blue",
+      "font": "ubuntu",
+      "language": "en",
+      "detail_level": "full",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "desktop_scale": 1,
+      "conky": "1.22.2",
+      "cards": 9,
+      "dpi": 96,
+      "file": "blue.webp",
+      "capture_type": "actual Conky/Xvfb render with synthetic fixture data",
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "original_bytes": 163886,
+      "webp_bytes": 68936
+    },
+    {
+      "palette": "teal",
+      "font": "dejavu",
+      "language": "es",
+      "detail_level": "essential",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "desktop_scale": 1,
+      "conky": "1.22.2",
+      "cards": 9,
+      "dpi": 96,
+      "file": "teal.webp",
+      "capture_type": "actual Conky/Xvfb render with synthetic fixture data",
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "original_bytes": 169446,
+      "webp_bytes": 68116
+    },
+    {
+      "palette": "green",
+      "font": "liberation",
+      "language": "en",
+      "detail_level": "full",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "desktop_scale": 1,
+      "conky": "1.22.2",
+      "cards": 9,
+      "dpi": 96,
+      "file": "green.webp",
+      "capture_type": "actual Conky/Xvfb render with synthetic fixture data",
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "original_bytes": 177904,
+      "webp_bytes": 72660
+    },
+    {
+      "palette": "yellow",
+      "font": "ubuntu",
+      "language": "es",
+      "detail_level": "essential",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "desktop_scale": 1,
+      "conky": "1.22.2",
+      "cards": 9,
+      "dpi": 96,
+      "file": "yellow.webp",
+      "capture_type": "actual Conky/Xvfb render with synthetic fixture data",
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "original_bytes": 163027,
+      "webp_bytes": 65436
+    },
+    {
+      "palette": "orange",
+      "font": "dejavu",
+      "language": "en",
+      "detail_level": "full",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "desktop_scale": 1,
+      "conky": "1.22.2",
+      "cards": 9,
+      "dpi": 96,
+      "file": "orange.webp",
+      "capture_type": "actual Conky/Xvfb render with synthetic fixture data",
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "original_bytes": 184793,
+      "webp_bytes": 75154
+    },
+    {
+      "palette": "red",
+      "font": "liberation",
+      "language": "es",
+      "detail_level": "essential",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "desktop_scale": 1,
+      "conky": "1.22.2",
+      "cards": 9,
+      "dpi": 96,
+      "file": "red.webp",
+      "capture_type": "actual Conky/Xvfb render with synthetic fixture data",
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "original_bytes": 164186,
+      "webp_bytes": 66272
+    },
+    {
+      "palette": "pink",
+      "font": "ubuntu",
+      "language": "en",
+      "detail_level": "full",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "desktop_scale": 1,
+      "conky": "1.22.2",
+      "cards": 9,
+      "dpi": 96,
+      "file": "pink.webp",
+      "capture_type": "actual Conky/Xvfb render with synthetic fixture data",
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "original_bytes": 165813,
+      "webp_bytes": 69304
+    },
+    {
+      "palette": "purple",
+      "font": "dejavu",
+      "language": "es",
+      "detail_level": "essential",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "desktop_scale": 1,
+      "conky": "1.22.2",
+      "cards": 9,
+      "dpi": 96,
+      "file": "purple.webp",
+      "capture_type": "actual Conky/Xvfb render with synthetic fixture data",
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "original_bytes": 170325,
+      "webp_bytes": 68610
+    },
+    {
+      "palette": "slate",
+      "font": "liberation",
+      "language": "en",
+      "detail_level": "full",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "desktop_scale": 1,
+      "conky": "1.22.2",
+      "cards": 9,
+      "dpi": 96,
+      "file": "slate.webp",
+      "capture_type": "actual Conky/Xvfb render with synthetic fixture data",
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "original_bytes": 179228,
+      "webp_bytes": 72998
+    },
+    {
+      "palette": "brown",
+      "font": "ubuntu",
+      "language": "es",
+      "detail_level": "essential",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "desktop_scale": 1,
+      "conky": "1.22.2",
+      "cards": 9,
+      "dpi": 96,
+      "file": "brown.webp",
+      "capture_type": "actual Conky/Xvfb render with synthetic fixture data",
+      "lossless": true,
+      "decoded_pixels_equal": true,
+      "original_bytes": 163555,
+      "webp_bytes": 65762
+    }
+  ]
+}

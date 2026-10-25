@@ -132,3 +132,5 @@ El inglés (`en`) es predeterminado y el español (`es`) está disponible para i
 El detalle es independiente del perfil y la densidad. `essential` oculta núcleos/hilos, especificaciones de RAM, fabricante/driver GPU, identidad/compilación profunda del SO, builds y notas de Python adicional. Conserva modelos, versiones principales, porcentajes, gráficas y procesos. `full` restaura los datos disponibles. No se reduce el inventario real ni se ocultan errores cambiando valores a cero.
 
 Estas opciones se guardan en `settings.json`; la paleta y opacidad van en `theme.json`. Los campos personales desconocidos se preservan. Consulta [idiomas](../reference/localization.md).
+
+[Diez paletas y ejemplos de fuente/detalle](../reference/appearance.md).

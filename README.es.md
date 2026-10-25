@@ -186,3 +186,9 @@ cortex-neo configure --detail-level essential
 ```
 
 Paletas completas: blue, teal, green, yellow, orange, red, pink, purple, slate y brown. Fuentes: ubuntu, dejavu y liberation, con comprobación y fallback. `essential` oculta información secundaria; `full` la restaura, independientemente de perfil y densidad. La documentación principal ahora es inglesa y el español permanece completo en [docs/es](docs/es/README.md). [Changelog español](CHANGELOG.es.md).
+
+![CORTEX NEO · blue](assets/previews/blue.webp)
+
+Render real de Conky/Xvfb con datos sintéticos · 1920 × 1080 · escalado 100% · 96 DPI · WebP sin pérdida.
+
+[Diez variantes y configuración](docs/es/reference/appearance.md).

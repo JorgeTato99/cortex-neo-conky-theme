@@ -34,3 +34,5 @@ La [validación inicial de 1.1.0](validation/initial-1.1.0.md) es evidencia hist
 no sustituye la matriz de compatibilidad vigente.
 
 [English](../README.md) · [Idiomas](reference/localization.md) · [Contribuir](contributing.md) · [Seguridad](security.md) · [Terceros](third-party-notices.md)
+
+[Galería de paletas, fuentes y detalle](reference/appearance.md).

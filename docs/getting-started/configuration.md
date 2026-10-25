@@ -44,3 +44,5 @@ Hardware models, tools and versions are discovered, not configured by hand. Miss
 RAM brand/type/speed requires optional authorized SMBIOS access; absent facts disappear. Intel GPU frequency remains MHz, never a fake utilization percentage. Memory tops are grouped RSS including shared pages. Unmounted disks have no invented used percentage; mount changes trigger inventory refresh.
 
 Use `start`, `stop`, `restart`, `status`, `doctor`, `inventory` and `capture` for controls. Edit theme source in your clone and reinstall; installed releases are deployment copies. Docker, SSH, RustDesk and Cloudflare services are independent.
+
+[Ten palette previews and font/detail examples](../reference/appearance.md).

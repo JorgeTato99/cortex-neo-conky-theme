@@ -9,3 +9,5 @@ English is the primary language. [Español](es/README.md) · [Project overview](
 - Evidence: [tests](validation/testing.md), [screenshots](validation/screenshots.md), [community reports](validation/community.md), [historical validation](validation/initial-1.1.0.md).
 
 Configuration IDs, command names and JSON field names remain stable English identifiers in both languages. Translate explanatory text, not executable examples.
+
+[Appearance gallery: palettes, fonts and detail](reference/appearance.md).
